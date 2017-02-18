@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using LunaticPlayer.Classes;
 
-namespace LunaticPlayer.GSRadioAPI
+namespace LunaticPlayer.GRadioAPI
 {
     public class ApiClient
     {
@@ -16,6 +16,11 @@ namespace LunaticPlayer.GSRadioAPI
 
         public StructuredApiData CurrentStructuredApiData { get; private set; }
 
+        /// <summary>
+        /// Converts the raw API data into the song class.
+        /// <seealso cref="LunaticPlayer.Classes.Song">
+        /// </summary>
+        /// <returns>The song fetched from the API.</returns>
         public Song PlayingSong()
         {
             var sYear = 0;
@@ -23,6 +28,28 @@ namespace LunaticPlayer.GSRadioAPI
             {
                 sYear = Convert.ToInt32(CurrentStructuredApiData.SongInfo["YEAR"]);
             }
+
+            var sId = 0;
+            if (CurrentStructuredApiData.MiscInfo["SONGID"] != "")
+            {
+                sId = Convert.ToInt32(CurrentStructuredApiData.MiscInfo["SONGID"]);
+            }
+
+            var sAid = 0;
+            if (CurrentStructuredApiData.MiscInfo["ALBUMID"] != "")
+            {
+                sId = Convert.ToInt32(CurrentStructuredApiData.MiscInfo["ALBUMID"]);
+            }
+
+#if DEBUG
+            Console.WriteLine("DEBUGLOG: Alle Informationen der API");
+            foreach (var item in CurrentStructuredApiData.SongInfo)
+                Console.WriteLine($"{item.Key}: {item.Value}");
+            foreach(var item in CurrentStructuredApiData.SongTimes)
+                Console.WriteLine($"{item.Key}: {item.Value}");
+            foreach (var item in CurrentStructuredApiData.MiscInfo)
+                Console.WriteLine($"{item.Key}: {item.Value}");
+#endif
 
             return new Song()
             {
@@ -34,13 +61,17 @@ namespace LunaticPlayer.GSRadioAPI
                 AlbumName = CurrentStructuredApiData.SongInfo["ALBUM"],
                 ArtistName = CurrentStructuredApiData.SongInfo["ARTIST"],
                 CircleName = CurrentStructuredApiData.SongInfo["CIRCLE"],
-                ApiSongId = Convert.ToInt32(CurrentStructuredApiData.MiscInfo["SONGID"]),
-                ApiAlbumId = Convert.ToInt32(CurrentStructuredApiData.MiscInfo["ALBUMID"]),
+                ApiSongId = sId,
+                ApiAlbumId = sAid,
                 AlbumArtFilename = CurrentStructuredApiData.MiscInfo["ALBUMART"],
                 CirleArtFilename = CurrentStructuredApiData.MiscInfo["CIRCLEART"]
             };
         }
 
+        /// <summary>
+        /// Downloads any data from the GensokyoRadio XML API and stores it in the class.
+        /// </summary>
+        /// <returns></returns>
         public async Task FetchRawApiData()
         {
             string rawXmlResult = "";

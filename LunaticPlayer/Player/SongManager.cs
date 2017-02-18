@@ -12,13 +12,17 @@ namespace LunaticPlayer.Player
 {
     public class SongManager
     {
-        private GSRadioAPI.ApiClient _api;
+        private GRadioAPI.ApiClient _api;
         private Song _currentSong;
 
-        private const int updateTolerance = 15;
+        private const int updateTolerance = 2;
         private const string imageLocation = "images";
         private const string gsImageHost = "https://gensokyoradio.net/images/albums/200/";
 
+        /// <summary>
+        /// Gets the current song. If the current song is over, this function calls the LoadSong function.
+        /// </summary>
+        /// <returns>Currently playing song.</returns>
         public async Task<Song> CurrentSong()
         {
             if (_currentSong == null || _currentSong.EndTime - DateTime.Now <= TimeSpan.FromSeconds(updateTolerance))
@@ -31,6 +35,10 @@ namespace LunaticPlayer.Player
             return _currentSong;
         }
 
+        /// <summary>
+        /// This function loads the current song of the API into the SongManager.
+        /// </summary>
+        /// <returns></returns>
         private async Task LoadSong()
         {
             await _api.FetchRawApiData();
@@ -39,6 +47,10 @@ namespace LunaticPlayer.Player
             _currentSong.AlbumArt = UpdateCoverImage();
         }
 
+        /// <summary>
+        /// Downloads the album art (if any) and returns it for usage in the UI.
+        /// </summary>
+        /// <returns>The current album art of the song.</returns>
         private BitmapImage UpdateCoverImage()
         {
             if (_currentSong.AlbumArtFilename != "")
@@ -46,6 +58,7 @@ namespace LunaticPlayer.Player
                 if (!Directory.Exists(imageLocation))
                     Directory.CreateDirectory(imageLocation);
 
+                // don't download the art twice
                 if (!File.Exists(Path.Combine(imageLocation, _currentSong.AlbumArtFilename)))
                 {
                     using (var client = new WebClient())
@@ -66,7 +79,7 @@ namespace LunaticPlayer.Player
             return null;
         }
 
-        public SongManager(GSRadioAPI.ApiClient client)
+        public SongManager(GRadioAPI.ApiClient client)
         {
             _api = client;
         }

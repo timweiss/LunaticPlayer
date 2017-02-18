@@ -29,6 +29,8 @@ namespace LunaticPlayer.Classes
         public string AlbumArtFilename { get; set; }
         public string CirleArtFilename { get; set; }
 
+        public string CircleArtist => $"{ArtistName} ({CircleName})";
+
         public BitmapImage AlbumArt { get; set; }
     }
 }

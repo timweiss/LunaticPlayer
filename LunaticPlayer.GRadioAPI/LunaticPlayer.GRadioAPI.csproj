@@ -7,8 +7,8 @@
     <ProjectGuid>{432B7143-97FC-4E49-9D42-4E8C4D3085BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LunaticPlayer.GSRadioAPI</RootNamespace>
-    <AssemblyName>LunaticPlayer.GSRadioAPI</AssemblyName>
+    <RootNamespace>LunaticPlayer.GRadioAPI</RootNamespace>
+    <AssemblyName>LunaticPlayer.GRadioAPI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

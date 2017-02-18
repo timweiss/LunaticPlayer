@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -96,9 +96,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LunaticPlayer.GSRadioAPI\LunaticPlayer.GSRadioAPI.csproj">
+    <ProjectReference Include="..\LunaticPlayer.GRadioAPI\LunaticPlayer.GRadioAPI.csproj">
       <Project>{432b7143-97fc-4e49-9d42-4e8c4d3085ba}</Project>
-      <Name>LunaticPlayer.GSRadioAPI</Name>
+      <Name>LunaticPlayer.GRadioAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +108,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\unmute_mat.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mute_92.png" />
+    <Resource Include="Resources\unmute_92.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\list_92.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\play_128.png" />
+    <Resource Include="Resources\stop_128.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
