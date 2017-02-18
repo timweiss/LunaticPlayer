@@ -38,11 +38,11 @@ namespace LunaticPlayer.Player
             player.Volume = volume;
         }
 
-        public void ToggleMute(double volume)
+        public void ToggleMute()
         {
             if (player.Volume == 0.0)
             {
-                player.Volume = volume / 10;
+                player.Volume = 0.5;
             }
             else
             {

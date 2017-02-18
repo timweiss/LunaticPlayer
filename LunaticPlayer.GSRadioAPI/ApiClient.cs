@@ -11,17 +11,23 @@ namespace LunaticPlayer.GSRadioAPI
 {
     public class ApiClient
     {
-        public const string StreamUrl = "http://stream.gensokyoradio.net:8000/stream/1/";
+        public static string StreamUrl = "http://stream.gensokyoradio.net:8000/stream/1/";
         public const string ApiUrl = "https://gensokyoradio.net/xml/";
 
         public StructuredApiData CurrentStructuredApiData { get; private set; }
 
         public Song PlayingSong()
         {
+            var sYear = 0;
+            if (CurrentStructuredApiData.SongInfo["YEAR"] != "")
+            {
+                sYear = Convert.ToInt32(CurrentStructuredApiData.SongInfo["YEAR"]);
+            }
+
             return new Song()
             {
                 Title = CurrentStructuredApiData.SongInfo["TITLE"],
-                Year = Convert.ToInt32(CurrentStructuredApiData.SongInfo["YEAR"]),
+                Year = sYear,
                 Duration = TimeSpan.FromSeconds(Convert.ToInt32(CurrentStructuredApiData.SongTimes["DURATION"])),
                 PlayedDuration = TimeSpan.FromSeconds(Convert.ToInt32(CurrentStructuredApiData.SongTimes["PLAYED"])),
                 StartTime = DateTime.Now.Add(-TimeSpan.FromSeconds(Convert.ToInt32(CurrentStructuredApiData.SongTimes["PLAYED"]))),

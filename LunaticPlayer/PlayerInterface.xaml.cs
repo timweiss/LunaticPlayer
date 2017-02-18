@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LunaticPlayer.GSRadioAPI;
+using System.Diagnostics;
+using System.Timers;
+using LunaticPlayer.Classes;
 
 namespace LunaticPlayer
 {
@@ -25,6 +28,12 @@ namespace LunaticPlayer
         private ApiClient _apiClient;
         private Player.SongManager _songManager;
 
+        private bool _isPlaying;
+
+        private Timer _interfaceTimer;
+
+        private Song _currentSong;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,13 +41,89 @@ namespace LunaticPlayer
             _radioPlayer = new Player.RadioPlayer();
             _apiClient = new ApiClient();
             _songManager = new Player.SongManager(_apiClient);
+
+            _interfaceTimer = new Timer();
+            _interfaceTimer.Interval = 1000;
+            _interfaceTimer.Elapsed += ReloadInterface;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void ReloadInterface(object sender, EventArgs e)
         {
-            var rad = await _songManager.CurrentSong();
+            Dispatcher.Invoke(() => UpdateSong());
+        }
 
-            MessageBox.Show($"Song: {rad.Title}\nAlbum: {rad.AlbumName}\nArtist: {rad.ArtistName}\nCircle: {rad.CircleName}\nDuration: {rad.Duration.ToString("mm':'ss")}\nLied endet in {rad.EndDuration.ToString("mm")}:{rad.EndDuration.ToString("ss")}");
+        private async void UpdateSong()
+        {
+            DataContext = _currentSong = await _songManager.CurrentSong();
+            RemainingTime.Text = _currentSong.EndDuration.ToString("mm':'ss") + " verbleibend";
+            if (_currentSong.AlbumArt != null)
+            {
+                AlbumArt.Source = _currentSong.AlbumArt;
+                AlbumArt.Width = 60;
+                SongDataContainer.Width = 150;
+            }
+            else
+            {
+                AlbumArt.Width = 0;
+                SongDataContainer.Width = 210;
+            }
+            this.Title = "LP: " + _currentSong.Title;
+        }
+
+        private void PlayButtonClicked()
+        {
+            if (_isPlaying)
+            {
+                _radioPlayer.Stop();
+                _isPlaying = false;
+                TBPlayButton.Description = "Play";
+
+                var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/play_mat.ico";
+                TBPlayButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
+            }
+            else
+            {
+                _radioPlayer.PlayFromUrl(ApiClient.StreamUrl);
+                _isPlaying = true;
+                TBPlayButton.Description = "Stop";
+
+                var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/pause_mat.ico";
+                TBPlayButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
+            }
+
+            UpdateSong();
+            _interfaceTimer.Start();
+        }
+
+
+        // Events
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PlayButtonClicked();
+        }
+
+        private void ThumbButtonInfo_Click(object sender, EventArgs e)
+        {
+            PlayButtonClicked();
+        }
+
+        private void TBMuteButton_Click(object sender, EventArgs e)
+        {
+            _radioPlayer.ToggleMute();
+
+            if (_radioPlayer.Muted)
+            {
+                TBMuteButton.Description = "Unmute";
+                var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/unmute_mat.ico";
+                TBMuteButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
+            }
+            else
+            {
+                TBMuteButton.Description = "Mute";
+                var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/mute_mat.ico";
+                TBMuteButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
+            }
         }
     }
 }

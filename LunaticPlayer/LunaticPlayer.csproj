@@ -101,5 +101,13 @@
       <Name>LunaticPlayer.GSRadioAPI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mute_mat.ico" />
+    <Resource Include="Resources\pause_mat.ico" />
+    <Resource Include="Resources\play_mat.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\unmute_mat.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

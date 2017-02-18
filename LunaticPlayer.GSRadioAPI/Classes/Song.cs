@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace LunaticPlayer.Classes
 {
@@ -27,6 +28,8 @@ namespace LunaticPlayer.Classes
 
         public string AlbumArtFilename { get; set; }
         public string CirleArtFilename { get; set; }
+
+        public BitmapImage AlbumArt { get; set; }
     }
 }
 

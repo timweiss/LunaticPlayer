@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
-        Title="Lunatic Player" Height="100" Width="300">
-    <Grid Background="#FF383838">
-        <Button Content="START" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" Height="49" Click="Button_Click"/>
-    </Grid>
+        Title="Lunatic Player" Height="110" Width="310">
+    <StackPanel Orientation="Horizontal" Background="#FF303030">
+        <Border Name="AlbumArtContainer" Padding="5,5,5,5" HorizontalAlignment="Left">
+            <Image Name="AlbumArt" Width="60" Height="60" Source="{Binding AlbumArt}"></Image>
+        </Border>
+        <Border Name="SongDataContainer" Padding="5,5,5,5"  Width="155" VerticalAlignment="Center">
+            <StackPanel Name="SongData">
+                <TextBlock Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="18" Foreground="White" FontFamily="Noto Sans"/>
+                <TextBlock Name="Artist" Text="{Binding ArtistName}" VerticalAlignment="Top" FontSize="12" Foreground="LightGray" FontFamily="Noto Sans" />
+                <TextBlock Name="RemainingTime" Foreground="LightGray"/>
+            </StackPanel>
+        </Border>
+        <Border Padding="10" Name="PlayButtonContainer" HorizontalAlignment="Right">
+            <Button HorizontalContentAlignment="Center" HorizontalAlignment="Right" Content="Play" Click="Button_Click" Background="#FF1B1B1B" BorderBrush="#FF3C3C3C" Foreground="#FFD6D6D6" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+        </Border>
+    </StackPanel>
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo>
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfo x:Name="TBMuteButton"  ImageSource="Resources/mute_mat.ico" Description="Mute" Click="TBMuteButton_Click" />
+                <ThumbButtonInfo x:Name="TBPlayButton"  ImageSource="Resources/play_mat.ico" Description="Play / Pause" Click="ThumbButtonInfo_Click" />
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
 </Window>
