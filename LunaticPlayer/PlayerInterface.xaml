@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Lunatic Player" Height="100" Width="300">
+    <Grid Background="#FF383838">
+        <Button Content="START" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" Width="75" Height="49" Click="Button_Click"/>
     </Grid>
 </Window>
