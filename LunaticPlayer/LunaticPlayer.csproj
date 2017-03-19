@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SongHistoryWindow.xaml.cs">
+      <DependentUpon>SongHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="PlayerInterface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +70,10 @@
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SongHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Player\RadioPlayer.cs" />

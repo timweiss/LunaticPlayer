@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using LunaticPlayer.Classes;
 using System.Windows.Media.Imaging;
@@ -15,7 +12,7 @@ namespace LunaticPlayer.Player
         private readonly GRadioAPI.ApiClient _api;
         private Song _currentSong;
 
-        private readonly SongHistoryManager _songHistory;
+        public readonly SongHistoryManager SongHistory;
 
         private const int UpdateTolerance = 2;
         private const string ImageLocation = "images";
@@ -48,7 +45,7 @@ namespace LunaticPlayer.Player
             _currentSong = _api.PlayingSong();
             _currentSong.AlbumArt = UpdateCoverImage();
 
-            _songHistory.AddSongToHistory(_currentSong);
+            SongHistory.AddSongToHistory(_currentSong);
         }
 
         /// <summary>
@@ -86,7 +83,7 @@ namespace LunaticPlayer.Player
         public SongManager(GRadioAPI.ApiClient client)
         {
             _api = client;
-            _songHistory = new SongHistoryManager();
+            SongHistory = new SongHistoryManager();
         }
     }
 }

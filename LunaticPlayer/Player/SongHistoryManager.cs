@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LunaticPlayer.Classes;
 using Newtonsoft.Json;
 
 namespace LunaticPlayer.Player
 {
-    class SongHistoryManager
+    public class SongHistoryManager
     {
         public List<Song> SongHistory { get; private set; }
 

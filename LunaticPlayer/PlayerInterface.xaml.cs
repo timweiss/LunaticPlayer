@@ -153,7 +153,8 @@ namespace LunaticPlayer
 
         private void SongListButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            SongHistoryWindow sWindow = new SongHistoryWindow(_songManager.SongHistory);
+            sWindow.Show();
         }
     }
 }
