@@ -25,6 +25,17 @@ namespace LunaticPlayer.Player
         /// <param name="song">The song that should be added.</param>
         public void AddSongToHistory(Song song)
         {
+            if (SongHistory.Any())
+            {
+                if (((SongHistory.Last().StartTime - song.StartTime) < TimeSpan.FromSeconds(1)) &&
+                    !((SongHistory.Last().StartTime - song.StartTime) < TimeSpan.FromSeconds(-1)))
+                {
+                    return;
+                }
+            }
+
+            Console.WriteLine(SongHistory.Last().StartTime - song.StartTime);
+
             SongHistory.Add(song);
 
             StoreHistory();
