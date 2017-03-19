@@ -5,45 +5,38 @@ namespace LunaticPlayer.Player
 {
     class RadioPlayer
     {
-        private MediaPlayer player;
+        private readonly MediaPlayer _player;
 
-        public bool Muted => player.Volume == 0.0;
+        public bool Muted => _player.Volume == 0.0;
 
-        public double Volume => player.Volume;
+        public double Volume => _player.Volume;
 
         public RadioPlayer()
         {
-            player = new MediaPlayer();
+            _player = new MediaPlayer();
         }
 
         public void PlayFromUrl(string url)
         {
-            player.Open(new Uri(url));
-            player.Play();
-            player.Volume = 0.5;
+            _player.Open(new Uri(url));
+            _player.Play();
+            _player.Volume = 0.5;
         }
 
         public void Stop()
         {
-            player.Stop();
+            _player.Stop();
         }
 
         //TODO: Lautstärke richtig einstellen
         public void SetVolume(double volume)
         {
-            player.Volume = volume;
+            _player.Volume = volume;
         }
 
         public void ToggleMute()
         {
-            if (player.Volume == 0.0)
-            {
-                player.Volume = 0.5;
-            }
-            else
-            {
-                player.Volume = 0.0;
-            }
+            _player.Volume = _player.Volume == 0.0 ? 0.5 : 0.0;
         }
     }
 }

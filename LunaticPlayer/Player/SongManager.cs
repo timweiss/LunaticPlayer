@@ -12,12 +12,14 @@ namespace LunaticPlayer.Player
 {
     public class SongManager
     {
-        private GRadioAPI.ApiClient _api;
+        private readonly GRadioAPI.ApiClient _api;
         private Song _currentSong;
 
-        private const int updateTolerance = 2;
-        private const string imageLocation = "images";
-        private const string gsImageHost = "https://gensokyoradio.net/images/albums/200/";
+        private readonly SongHistoryManager _songHistory;
+
+        private const int UpdateTolerance = 2;
+        private const string ImageLocation = "images";
+        private const string GrImageHost = "https://gensokyoradio.net/images/albums/200/";
 
         /// <summary>
         /// Gets the current song. If the current song is over, this function calls the LoadSong function.
@@ -25,7 +27,7 @@ namespace LunaticPlayer.Player
         /// <returns>Currently playing song.</returns>
         public async Task<Song> CurrentSong()
         {
-            if (_currentSong == null || _currentSong.EndTime - DateTime.Now <= TimeSpan.FromSeconds(updateTolerance))
+            if (_currentSong == null || _currentSong.EndTime - DateTime.Now <= TimeSpan.FromSeconds(UpdateTolerance))
             {
                 await LoadSong();
 
@@ -45,6 +47,8 @@ namespace LunaticPlayer.Player
 
             _currentSong = _api.PlayingSong();
             _currentSong.AlbumArt = UpdateCoverImage();
+
+            _songHistory.AddSongToHistory(_currentSong);
         }
 
         /// <summary>
@@ -55,21 +59,21 @@ namespace LunaticPlayer.Player
         {
             if (_currentSong.AlbumArtFilename != "")
             {
-                if (!Directory.Exists(imageLocation))
-                    Directory.CreateDirectory(imageLocation);
+                if (!Directory.Exists(ImageLocation))
+                    Directory.CreateDirectory(ImageLocation);
 
                 // don't download the art twice
-                if (!File.Exists(Path.Combine(imageLocation, _currentSong.AlbumArtFilename)))
+                if (!File.Exists(Path.Combine(ImageLocation, _currentSong.AlbumArtFilename)))
                 {
                     using (var client = new WebClient())
                     {
-                        client.DownloadFile(gsImageHost + _currentSong.AlbumArtFilename, Path.Combine(imageLocation,_currentSong.AlbumArtFilename));
+                        client.DownloadFile(GrImageHost + _currentSong.AlbumArtFilename, Path.Combine(ImageLocation,_currentSong.AlbumArtFilename));
                     }
                 }
 
                 var bmi = new BitmapImage();
                 bmi.BeginInit();
-                bmi.UriSource = new Uri(Path.Combine(imageLocation, _currentSong.AlbumArtFilename), UriKind.Relative);
+                bmi.UriSource = new Uri(Path.Combine(ImageLocation, _currentSong.AlbumArtFilename), UriKind.Relative);
                 bmi.CacheOption = BitmapCacheOption.OnLoad;
                 bmi.EndInit();
 
@@ -82,6 +86,7 @@ namespace LunaticPlayer.Player
         public SongManager(GRadioAPI.ApiClient client)
         {
             _api = client;
+            _songHistory = new SongHistoryManager();
         }
     }
 }

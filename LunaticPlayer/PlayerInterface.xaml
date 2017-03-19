@@ -63,7 +63,7 @@
                 </Button>
             </Border>
             <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                <Button Style="{StaticResource TransparentImageButton}" Name="SongListButton" >
+                <Button Style="{StaticResource TransparentImageButton}" Name="SongListButton" Click="SongListButton_OnClick" >
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/list_92.png"/>
                     </Button.Background>

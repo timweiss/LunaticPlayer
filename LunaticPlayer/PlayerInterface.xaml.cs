@@ -43,7 +43,7 @@ namespace LunaticPlayer
         /// <param name="e"></param>
         private void ReloadInterface(object sender, EventArgs e)
         {
-            Dispatcher.Invoke(() => UpdateSong());
+            Dispatcher.Invoke(UpdateSong);
         }
 
         /// <summary>
@@ -149,6 +149,11 @@ namespace LunaticPlayer
         private void MuteButton_Click(object sender, RoutedEventArgs e)
         {
             MuteRadioStream();
+        }
+
+        private void SongListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
