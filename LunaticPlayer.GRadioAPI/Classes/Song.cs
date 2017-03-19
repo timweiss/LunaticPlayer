@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 
 namespace LunaticPlayer.Classes
 {
@@ -31,6 +32,7 @@ namespace LunaticPlayer.Classes
 
         public string CircleArtist => $"{ArtistName} ({CircleName})";
 
+        [JsonIgnore]
         public BitmapImage AlbumArt { get; set; }
     }
 }
