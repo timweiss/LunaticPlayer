@@ -160,5 +160,10 @@ namespace LunaticPlayer
             SongHistoryWindow sWindow = new SongHistoryWindow(_songManager.SongHistory);
             sWindow.Show();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
