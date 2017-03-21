@@ -46,12 +46,16 @@ namespace LunaticPlayer
             Dispatcher.Invoke(UpdateSong);
         }
 
+        private bool firstRun = true;
+
         /// <summary>
         /// Updates any song information and UI stuff.
         /// </summary>
         private async void UpdateSong()
-        {
+        {   
             DataContext = _currentSong = await _songManager.CurrentSong();
+            firstRun = false;
+
             RemainingTime.Text = _currentSong.EndDuration.ToString("mm':'ss") + " remaining";
             if (_currentSong.AlbumArt != null)
             {

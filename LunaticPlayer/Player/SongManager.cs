@@ -4,6 +4,7 @@ using LunaticPlayer.Classes;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace LunaticPlayer.Player
 {

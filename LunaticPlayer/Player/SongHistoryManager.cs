@@ -32,8 +32,6 @@ namespace LunaticPlayer.Player
                 }
             }
 
-            Console.WriteLine(SongHistory.Last().StartTime - song.StartTime);
-
             SongHistory.Add(song);
 
             StoreHistory();
