@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
         Title="Song History" Height="300" Width="400">
-    <Grid>
-        <ListBox x:Name="SongList">
+    <Grid Background="#FF303030">
+        <ListBox x:Name="SongList" Background="{x:Null}" Margin="2" BorderBrush="{x:Null}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="0,2">
-                        <TextBlock Text="{Binding Title}" FontSize="16"/>
-                        <TextBlock Text="{Binding CircleArtist}"/>
-                        <TextBlock FontSize="10">
+                    <StackPanel Margin="0,3,0,3">
+                        <TextBlock Text="{Binding Title}" FontSize="16" Foreground="White"/>
+                        <TextBlock Text="{Binding CircleArtist}" Foreground="#FFC9C9C9"/>
+                        <TextBlock FontSize="10" Foreground="#FFC9C9C9">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0:00}:{1:00;00} - {2:dd.MM. HH:mm}">
                                     <Binding Path="Duration.Minutes"/>
