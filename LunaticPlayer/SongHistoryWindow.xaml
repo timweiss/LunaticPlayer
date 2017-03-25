@@ -8,6 +8,16 @@
         Title="Song History" Height="300" Width="400">
     <Grid Background="#FF303030">
         <ListBox x:Name="SongList" Background="{x:Null}" Margin="2" BorderBrush="{x:Null}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Copy Content" Click="CopyItem_OnClick"/>
+                    <Separator />
+                    <MenuItem Header="Copy JSON" Click="CopyJson_OnClick"/>
+                    <Separator />
+                    <MenuItem Header="Search on Google" Click="SearchOnGoogle_OnClick" />
+                    <MenuItem Header="Search for circle on TouhouWiki" Click="SearchOnTouhouWiki_OnClick"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="0,3,0,3">

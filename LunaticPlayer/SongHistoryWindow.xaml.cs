@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using LunaticPlayer.Classes;
 using LunaticPlayer.Player;
+using Newtonsoft.Json;
 
 namespace LunaticPlayer
 {
@@ -32,5 +35,64 @@ namespace LunaticPlayer
             //}
             SongList.ItemsSource = _songHistory.SongHistory;
         }
+
+        private void CopyItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            HandleClick(CMenuAction.CopyToClipboard);
+        }
+
+        private void SearchOnGoogle_OnClick(object sender, RoutedEventArgs e)
+        {
+            HandleClick(CMenuAction.SearchOnGoogle);
+        }
+
+        private void SearchOnTouhouWiki_OnClick(object sender, RoutedEventArgs e)
+        {
+            HandleClick(CMenuAction.SearchOnTw);
+        }
+
+        private void CopyJson_OnClick(object sender, RoutedEventArgs e)
+        {
+            HandleClick(CMenuAction.CopyJsonToClipboard);
+        }
+
+        /// <summary>
+        /// Handles the context menu click action.
+        /// </summary>
+        /// <param name="action">Which action should be performed.</param>
+        private void HandleClick(CMenuAction action)
+        {
+            if (SongList.SelectedIndex == -1) return;
+
+            var song = (Song)SongList.Items[SongList.SelectedIndex];
+
+            switch (action)
+            {
+                case CMenuAction.CopyToClipboard:
+                    Clipboard.SetText($"Artist: {song.ArtistName}, Circle: {song.CircleName}, Title: {song.Title}");
+                    break;
+                case CMenuAction.CopyJsonToClipboard:
+                    Clipboard.SetText(JsonConvert.SerializeObject(song));
+                    break;
+                case CMenuAction.SearchOnGoogle:
+                    System.Diagnostics.Process.Start($"https://www.google.com/search?q={song.ArtistName}+{song.Title}");
+                    break;
+                case CMenuAction.SearchOnTw:
+                    System.Diagnostics.Process.Start($"https://en.touhouwiki.net/index.php?search={song.CircleName}");
+                    break;
+            }
+
+#if DEBUG
+            Console.WriteLine($"[HistoryWindow]: Action Performed - {action}");
+#endif
+        }
+    }
+
+    enum CMenuAction
+    {
+        CopyToClipboard,
+        CopyJsonToClipboard,
+        SearchOnGoogle,
+        SearchOnTw
     }
 }
