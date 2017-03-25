@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
-        Title="Details" Height="280" Width="360">
+        Title="Details" Height="295" Width="360">
     <Grid Background="#FF303030">
         <StackPanel>
             <DockPanel>
@@ -31,12 +31,14 @@
                                     <TextBlock Text="Played until" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
                                     <TextBlock Text="Year" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
                                     <TextBlock Text="Circle" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="Album" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="{Binding StartTime}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                     <TextBlock Text="{Binding EndTime}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                     <TextBlock Text="{Binding Year}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                     <TextBlock Text="{Binding CircleName}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
+                                    <TextBlock Text="{Binding AlbumName}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>
