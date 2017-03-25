@@ -1,0 +1,48 @@
+﻿<Window x:Class="LunaticPlayer.SongDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LunaticPlayer"
+        mc:Ignorable="d"
+        Title="Details" Height="280" Width="360">
+    <Grid Background="#FF303030">
+        <StackPanel>
+            <DockPanel>
+                <Border Name="AlbumArtContainer" HorizontalAlignment="Left" Margin="10,10,0,10">
+                    <Image Name="AlbumArt" Width="100" Height="100" Source="{Binding AlbumArt}"></Image>
+                </Border>
+                <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
+                    <StackPanel Name="SongData">
+                        <TextBlock Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="22" Foreground="White" FontFamily="Noto Sans"/>
+                        <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="16" Foreground="LightGray" FontFamily="Noto Sans" />
+                        <TextBlock Name="Duration" Text="{Binding Duration}" VerticalAlignment="Top" FontSize="16" Foreground="LightGray" FontFamily="Noto Sans" />
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+            <Grid>
+                <Border Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Metadata" Foreground="White" FontFamily="Noto Sans" FontSize="16"/>
+                        <Border Padding="10,0,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Played from" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="Played until" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="Year" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="Circle" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
+                                </StackPanel>
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock Text="{Binding StartTime}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
+                                    <TextBlock Text="{Binding EndTime}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
+                                    <TextBlock Text="{Binding Year}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
+                                    <TextBlock Text="{Binding CircleName}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

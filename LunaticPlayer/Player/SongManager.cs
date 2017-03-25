@@ -16,7 +16,7 @@ namespace LunaticPlayer.Player
         public readonly SongHistoryManager SongHistory;
 
         private const int UpdateTolerance = 2;
-        private const string ImageLocation = "images";
+        public const string ImageLocation = "images";
         private const string GrImageHost = "https://gensokyoradio.net/images/albums/200/";
 
         /// <summary>

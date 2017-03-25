@@ -57,6 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SongDetailsWindow.xaml.cs">
+      <DependentUpon>SongDetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SongHistoryWindow.xaml.cs">
       <DependentUpon>SongHistoryWindow.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,10 @@
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SongDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SongHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

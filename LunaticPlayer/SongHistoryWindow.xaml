@@ -10,8 +10,9 @@
         <ListBox x:Name="SongList" Background="{x:Null}" Margin="2" BorderBrush="{x:Null}">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Copy Content" Click="CopyItem_OnClick"/>
+                    <MenuItem Header="Show details" Click="ShowDetails_OnClick"/>
                     <Separator />
+                    <MenuItem Header="Copy #Artist #Circle #Title" Click="CopyItem_OnClick"/>
                     <MenuItem Header="Copy JSON" Click="CopyJson_OnClick"/>
                     <Separator />
                     <MenuItem Header="Search on Google" Click="SearchOnGoogle_OnClick" />

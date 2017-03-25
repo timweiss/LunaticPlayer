@@ -73,19 +73,29 @@ namespace LunaticPlayer
                 case CMenuAction.SearchOnTw:
                     System.Diagnostics.Process.Start($"https://en.touhouwiki.net/index.php?search={song.CircleName}");
                     break;
+                case CMenuAction.ShowDetails:
+                    var details = new SongDetailsWindow(song);
+                    details.Show();
+                    break;
             }
 
 #if DEBUG
             Console.WriteLine($"[HistoryWindow]: Action Performed - {action}");
 #endif
         }
+
+        private void ShowDetails_OnClick(object sender, RoutedEventArgs e)
+        {
+            HandleClick(CMenuAction.ShowDetails);
+        }
     }
 
-    enum CMenuAction
+    internal enum CMenuAction
     {
         CopyToClipboard,
         CopyJsonToClipboard,
         SearchOnGoogle,
-        SearchOnTw
+        SearchOnTw,
+        ShowDetails
     }
 }

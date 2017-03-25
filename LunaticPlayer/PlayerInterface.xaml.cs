@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.GRadioAPI;
 using System.Timers;
+using System.Windows.Markup;
 using LunaticPlayer.Classes;
 
 namespace LunaticPlayer
@@ -34,6 +36,10 @@ namespace LunaticPlayer
             _interfaceTimer = new Timer();
             _interfaceTimer.Interval = 1000;
             _interfaceTimer.Elapsed += ReloadInterface;
+
+
+            LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
         }
 
         /// <summary>
