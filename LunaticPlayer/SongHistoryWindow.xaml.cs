@@ -18,7 +18,6 @@ namespace LunaticPlayer
             InitializeComponent();
             _songHistory = shManager;
 
-            // DataContext = _songHistory;
             PopulateList();
         }
 
@@ -27,12 +26,6 @@ namespace LunaticPlayer
         /// </summary>
         private void PopulateList()
         {
-            //foreach (var song in _songHistory.SongHistory)
-            //{
-            //    var item = new ListBoxItem();
-            //    item.Content = song.Title + " - " + song.CircleArtist;
-            //    SongList.Items.Add(item);
-            //}
             SongList.ItemsSource = _songHistory.SongHistory;
         }
 
