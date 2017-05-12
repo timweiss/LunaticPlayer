@@ -38,7 +38,14 @@
             </Border>
             <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
                 <StackPanel Name="SongData">
-                    <TextBlock Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="18" Foreground="White" FontFamily="Noto Sans"/>
+                    <Button Click="SongInfoButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <TextBlock Cursor="Hand" Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="18" Foreground="White" FontFamily="Noto Sans"/>
+                    </Button>
                     <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="12" Foreground="LightGray" FontFamily="Noto Sans" />
                     <TextBlock Name="RemainingTime" Foreground="LightGray"/>
                 </StackPanel>

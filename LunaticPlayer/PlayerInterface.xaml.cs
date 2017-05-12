@@ -171,5 +171,11 @@ namespace LunaticPlayer
         {
             Application.Current.Shutdown();
         }
+
+        private void SongInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            SongDetailsWindow sdWindow = new SongDetailsWindow(_currentSong);
+            sdWindow.Show();
+        }
     }
 }
