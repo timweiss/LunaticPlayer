@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LunaticPlayer.Classes;
+using LunaticPlayer.Database;
 using Newtonsoft.Json;
 
 namespace LunaticPlayer.Player
@@ -9,6 +10,7 @@ namespace LunaticPlayer.Player
     public class SongHistoryManager
     {
         public List<Song> SongHistory { get; private set; }
+        public Database.Database Database { get; set; }
 
         public SongHistoryManager()
         {
@@ -34,13 +36,23 @@ namespace LunaticPlayer.Player
 
             SongHistory.Add(song);
 
-            StoreHistory();
+            StoreHistory(song);
         }
 
         /// <summary>
-        /// Loads the song history out of the JSON file.
+        /// Loads the song history out of the database.
         /// </summary>
         private void InitializeHistory()
+        {
+            Database = new Database.Database();
+
+            SongHistory = Database.GetAllSongs();
+        }
+
+        /// <summary>
+        /// Loads the song history from the JSON file.
+        /// </summary>
+        private void InitializeHistoryJson()
         {
             if (System.IO.File.Exists("songhist.json"))
             {
@@ -51,9 +63,17 @@ namespace LunaticPlayer.Player
         }
 
         /// <summary>
-        /// Stores the song history in a JSON file. Let's just hope the files won't get too large.
+        /// Adds the last song to the database.
         /// </summary>
-        private void StoreHistory()
+        private void StoreHistory(Song lastSong)
+        {
+            Database.AddSong(lastSong);
+        }
+
+        /// <summary>
+        /// Stores the current state of the song history in the JSON file.
+        /// </summary>
+        private void StoreHistoryJson()
         {
             var json = JsonConvert.SerializeObject(SongHistory);
 

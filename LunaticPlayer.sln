@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaticPlayer", "LunaticPlayer\LunaticPlayer.csproj", "{54C1D563-C319-478E-805B-DA04CB7D90A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaticPlayer.GRadioAPI", "LunaticPlayer.GRadioAPI\LunaticPlayer.GRadioAPI.csproj", "{432B7143-97FC-4E49-9D42-4E8C4D3085BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaticPlayer.Database", "LunaticPlayer.Database\LunaticPlayer.Database.csproj", "{7E1C563E-7DCF-4420-80EE-6ED3AFC85577}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{432B7143-97FC-4E49-9D42-4E8C4D3085BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{432B7143-97FC-4E49-9D42-4E8C4D3085BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{432B7143-97FC-4E49-9D42-4E8C4D3085BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E1C563E-7DCF-4420-80EE-6ED3AFC85577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E1C563E-7DCF-4420-80EE-6ED3AFC85577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E1C563E-7DCF-4420-80EE-6ED3AFC85577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E1C563E-7DCF-4420-80EE-6ED3AFC85577}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
