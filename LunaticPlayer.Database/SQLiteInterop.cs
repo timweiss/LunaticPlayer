@@ -123,7 +123,7 @@ namespace LunaticPlayer.Database
         {
             var songs = new List<Song>();
 
-            var querySql = "SELECT * FROM SongHistory ORDER BY startTime DESC";
+            var querySql = "SELECT * FROM SongHistory ORDER BY startTime ASC";
             SQLiteCommand queryCommand = new SQLiteCommand(querySql, _sqliteDb);
 
             _sqliteDb.Open();

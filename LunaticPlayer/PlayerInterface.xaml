@@ -58,25 +58,35 @@
                 </Button>
             </Border>
         </DockPanel>
-        <StackPanel Orientation="Horizontal" Background="#FF767676" Height="45" VerticalAlignment="Bottom">
-            <StackPanel.Effect>
+        <Grid Height="45" VerticalAlignment="Bottom" Background="#FF767676">
+            <Grid.Effect>
                 <DropShadowEffect Direction="90" Opacity="0.2" ShadowDepth="4"/>
-            </StackPanel.Effect>
-            <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                <Button Style="{StaticResource TransparentImageButton}" Name="MuteButton" Click="MuteButton_Click">
+            </Grid.Effect>
+            <StackPanel Orientation="Horizontal" Height="45" VerticalAlignment="Bottom" Margin="0,0,50,0">
+                <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource TransparentImageButton}" Name="MuteButton" Click="MuteButton_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Resources/mute_92.png"/>
+                        </Button.Background>
+                    </Button>
+                </Border>
+                <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource TransparentImageButton}" Name="SongListButton" Click="SongListButton_OnClick" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="Resources/list_92.png"/>
+                        </Button.Background>
+                    </Button>
+                </Border>
+            </StackPanel>
+            
+            <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Right" Visibility="Hidden">
+                <Button Style="{StaticResource TransparentImageButton}" Name="OptionsButton" Click="OptionsButton_OnClick" >
                     <Button.Background>
-                        <ImageBrush ImageSource="Resources/mute_92.png"/>
+                        <ImageBrush ImageSource="Resources/settings_92.png"/>
                     </Button.Background>
                 </Button>
             </Border>
-            <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                <Button Style="{StaticResource TransparentImageButton}" Name="SongListButton" Click="SongListButton_OnClick" >
-                    <Button.Background>
-                        <ImageBrush ImageSource="Resources/list_92.png"/>
-                    </Button.Background>
-                </Button>
-            </Border>
-        </StackPanel>
+        </Grid>
     </Grid>
 
     <Window.TaskbarItemInfo>
