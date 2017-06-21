@@ -79,7 +79,7 @@
                 </Border>
             </StackPanel>
             
-            <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Right" Visibility="Hidden">
+            <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Right">
                 <Button Style="{StaticResource TransparentImageButton}" Name="OptionsButton" Click="OptionsButton_OnClick" >
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/settings_92.png"/>
