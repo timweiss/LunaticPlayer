@@ -58,7 +58,7 @@ namespace LunaticPlayer
             {
                 foreach (string filename in Directory.EnumerateFiles(SongManager.ImageLocation))
                 {
-                    if (File.GetCreationTime(filename) >= DateTime.Now - TimeSpan.FromDays(30))
+                    if (File.GetCreationTime(filename) <= DateTime.Now - TimeSpan.FromDays(30))
                     {
                         Console.WriteLine("Deleting File " + filename);
                         File.Delete(filename);
