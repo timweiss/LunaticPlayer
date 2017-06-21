@@ -10,10 +10,10 @@
         <Border Padding="10,0,10,10" Width="200">
             <StackPanel>
                 <Border Padding="15">
-                    <Image Source="Resources/gr_icon_new.png"></Image>
+                    <Image RenderOptions.BitmapScalingMode="Fant" Source="Resources/gr_icon_new.png"></Image>
                 </Border>
                 <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24">Lunatic Player</TextBlock>
-                <TextBlock Foreground="#FFCBCBCB" HorizontalAlignment="Center">Version 1.0.1</TextBlock>
+                <TextBlock Foreground="#FFCBCBCB" HorizontalAlignment="Center" Text="{Binding AppVersion, StringFormat='Version {0}'}"></TextBlock>
             </StackPanel>
         </Border>
         <Border Padding="10">
@@ -29,8 +29,8 @@
                     <TextBlock Foreground="#FFEAEAEA" FontSize="18">Song Database</TextBlock>
 
                     <TextBlock Foreground="#FFB8B8B8">Delete entries from the database</TextBlock>
-                    <Button Margin="0,5,0,0" Height="25">Delete all entries</Button>
-                    <Button Margin="0,5,0,0" Height="25">Delete todays entries</Button>
+                    <Button Margin="0,5,0,0" Height="25" Click="DeleteDatabaseEntriesButton_Click">Delete all entries</Button>
+                    <Button Margin="0,5,0,0" Height="25" Click="DeleteDatabaseEntriesTodayButton_Click">Delete today's entries</Button>
                 </StackPanel>
                 <StackPanel Name="LegalPanel" Margin="0,10,0,0">
                     <TextBlock Foreground="#FFEAEAEA" FontSize="18">Legal + Attributions</TextBlock>

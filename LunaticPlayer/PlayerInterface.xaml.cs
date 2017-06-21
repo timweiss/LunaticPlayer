@@ -180,7 +180,7 @@ namespace LunaticPlayer
 
         private void OptionsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            SettingsWindow sWindow = new SettingsWindow();
+            SettingsWindow sWindow = new SettingsWindow(_songManager.SongHistory.Database);
             sWindow.Show();
         }
     }

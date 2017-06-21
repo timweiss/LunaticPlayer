@@ -29,14 +29,36 @@
                                 <StackPanel>
                                     <TextBlock Text="Played from" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
                                     <TextBlock Text="Played until" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
-                                    <TextBlock Text="Year" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="Year" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding Year}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Year}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                     <TextBlock Text="Circle" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
                                     <TextBlock Text="Album" Foreground="LightGray" FontFamily="Noto Sans" FontSize="14" HorizontalAlignment="Right"/>
                                 </StackPanel>
                                 <StackPanel Margin="10,0,0,0">
                                     <TextBlock Text="{Binding StartTime}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                     <TextBlock Text="{Binding EndTime}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
-                                    <TextBlock Text="{Binding Year}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
+                                    <TextBlock Text="{Binding Year}" Foreground="White" FontFamily="Noto Sans" FontSize="14">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value="{Binding Year}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Year}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                     <TextBlock Text="{Binding CircleName}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                     <TextBlock Text="{Binding AlbumName}" Foreground="White" FontFamily="Noto Sans" FontSize="14" />
                                 </StackPanel>

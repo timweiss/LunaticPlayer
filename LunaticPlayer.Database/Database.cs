@@ -35,5 +35,15 @@ namespace LunaticPlayer.Database
         {
             _dbAccess.AddSong(song);
         }
+
+        public void RemoveAllSongs()
+        {
+            _dbAccess.ClearSongTable();
+        }
+
+        public void RemoveSongsOfToday()
+        {
+            _dbAccess.ClearSongsOfToday();
+        }
     }
 }

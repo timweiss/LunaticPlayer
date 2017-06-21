@@ -151,5 +151,26 @@ namespace LunaticPlayer.Database
 
             return songs;
         }
+
+        public void ClearSongTable()
+        {
+            SQLiteCommand command = new SQLiteCommand("DELETE FROM SongHistory", _sqliteDb);
+
+            _sqliteDb.Open();
+            command.ExecuteNonQuery();
+            _sqliteDb.Close();
+
+            Console.WriteLine("Deleted all entries of SongHistory table.");
+        }
+
+        public void ClearSongsOfToday()
+        {
+            SQLiteCommand command = new SQLiteCommand("DELETE FROM SongHistory WHERE startTime>=@startTime", _sqliteDb);
+            command.Parameters.AddWithValue("@startTime", DateTime.Today);
+
+            _sqliteDb.Open();
+            command.ExecuteNonQuery();
+            _sqliteDb.Close();
+        }
     }
 }
