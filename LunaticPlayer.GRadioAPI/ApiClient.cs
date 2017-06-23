@@ -139,6 +139,32 @@ namespace LunaticPlayer.GRadioAPI
                 CurrentStructuredApiData = apiData;
             }
         }
+
+        /// <summary>
+        /// Checks whether the API is reachable or not.
+        /// </summary>
+        /// <returns>Status</returns>
+        public async Task<bool> CheckApiAccess()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.GetAsync(ApiUrl))
+                {
+                    if (response.IsSuccessStatusCode)
+                        return true;
+
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+
+            return false;
+        }
     }
 
     public class StructuredApiData

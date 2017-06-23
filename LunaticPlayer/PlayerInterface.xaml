@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
         Title="Lunatic Player" Height="245" Width="375" Closed="Window_Closed" Loaded="Window_Loaded">
+    
     <Window.Resources>
         <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
         <Style TargetType="Button" x:Key="TransparentImageButton">
@@ -41,10 +42,18 @@
                 Storyboard.TargetProperty="Opacity"
                 From="0.0" To="1.0" Duration="0:0:0.5" />
         </Storyboard>
+
+        <Storyboard x:Key="FadeInMessageBanner">
+            <DoubleAnimation
+                Storyboard.TargetName="MainContent.MessageBanner" 
+                Storyboard.TargetProperty="Opacity"
+                From="0.0" To="1.0" Duration="0:0:0.5" />
+        </Storyboard>
     </Window.Resources>
 
     <Grid>
-        <Grid Background="#FF303030" Margin="0,0,0,45">
+        <Grid Name="MainContent" Background="#FF303030" Margin="0,0,0,45">
+            <StackPanel Name="BannerContainer" Height="50" VerticalAlignment="Top"></StackPanel>
             <DockPanel Name="PlayerContent">
                 <Border Name="AlbumArtContainer" Padding="10" HorizontalAlignment="Left">
                     <Image Name="AlbumArt" Width="125" Height="125" Source="{Binding AlbumArt}"></Image>

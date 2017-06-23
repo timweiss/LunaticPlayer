@@ -5,8 +5,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.GRadioAPI;
 using System.Timers;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 using LunaticPlayer.Classes;
 
 namespace LunaticPlayer
@@ -211,9 +213,53 @@ namespace LunaticPlayer
             sWindow.Show();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private PopupBanner _messageBanner;
+
+        /// <summary>
+        /// Is run after window is loaded and checks connection. 
+        /// Displays currently playing track.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// TODO: add ability to refresh player after connection failiure
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateSong();
+            if (!await _apiClient.CheckApiAccess())
+            {
+                _messageBanner = new PopupBanner(new PopupBannerData
+                {
+                    Message = "Could not connect to GR",
+                    Closable = false,
+                    Level = PopupLevel.Error,
+                    CloseAction = ClosePopupBanner
+                });
+                _messageBanner.Height = 40;
+                _messageBanner.VerticalAlignment = VerticalAlignment.Top;
+                _messageBanner.Effect = new DropShadowEffect() {BlurRadius = 20, Direction = -180};
+                _messageBanner.Name = "MessageBanner";
+                _messageBanner.Opacity = 0.0;
+
+                this.MainContent.Children.Add(_messageBanner);
+
+                Storyboard sb = this.FindResource("FadeInMessageBanner") as Storyboard;
+                Storyboard.SetTarget(sb, _messageBanner);
+                sb.Begin();
+                HideSongInfo();
+            }
+            else
+            {
+                UpdateSong();
+            }
+        }
+
+        private void HideSongInfo()
+        {
+            RunFadeOutAnimation();
+        }
+
+        private void ClosePopupBanner()
+        {
+            this.MainContent.Children.Remove(_messageBanner);
         }
 
         private void RunFadeOutAnimation()
