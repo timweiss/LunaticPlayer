@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -38,6 +39,14 @@ namespace LunaticPlayer
             viewModel.AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
             DataContext = viewModel;
             InitializeComponent();
+            this.Loaded += Window_Loaded;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            //Storyboard sb = this.FindResource("FadeAppInfo") as Storyboard;
+            //Storyboard.SetTarget(sb, this.AppInfo);
+            //sb.Begin();
         }
 
         private void DeleteAllCoverImagesButton_Click(object sender, RoutedEventArgs e)
