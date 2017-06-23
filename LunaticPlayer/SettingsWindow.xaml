@@ -7,7 +7,19 @@
         mc:Ignorable="d"
         Title="Settings" Height="384" Width="582.875">
     <DockPanel Background="#FF303030">
-        <Border Padding="10,0,10,10" Width="200">
+        <Border Name="AppInfo" Padding="10,0,10,10" Width="200">
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="local:SettingsWindow.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="AppInfo" 
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.0" To="1" Duration="0:0:0.4" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
             <StackPanel>
                 <Border Padding="15">
                     <Image RenderOptions.BitmapScalingMode="Fant" Source="Resources/gr_icon_new.png"></Image>

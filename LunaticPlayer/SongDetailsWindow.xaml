@@ -14,8 +14,8 @@
                 </Border>
                 <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
                     <StackPanel Name="SongData">
-                        <TextBlock Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="22" Foreground="White" FontFamily="Noto Sans"/>
-                        <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="16" Foreground="LightGray" FontFamily="Noto Sans" />
+                        <TextBlock Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="22" Foreground="White" FontFamily="Noto Sans" TextTrimming="CharacterEllipsis" ToolTip="{Binding Title}"/>
+                        <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="16" Foreground="LightGray" FontFamily="Noto Sans" TextTrimming="CharacterEllipsis" ToolTip="{Binding CircleArtist}" />
                         <TextBlock Name="Duration" Text="{Binding Duration}" VerticalAlignment="Top" FontSize="16" Foreground="LightGray" FontFamily="Noto Sans" />
                     </StackPanel>
                 </Border>
