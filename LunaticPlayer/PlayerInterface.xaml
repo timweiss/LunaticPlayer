@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
-        Title="Lunatic Player" Height="160" Width="315" Closed="Window_Closed">
+        Title="Lunatic Player" Height="245" Width="375" Closed="Window_Closed" Loaded="Window_Loaded">
     <Window.Resources>
         <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
         <Style TargetType="Button" x:Key="TransparentImageButton">
@@ -29,35 +29,48 @@
             </Setter>
         </Style>
 
+        <Storyboard x:Key="SongFadeOutStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetName="PlayerContent" 
+                Storyboard.TargetProperty="Opacity"
+                From="1.0" To="0.0" Duration="0:0:0.5" />
+        </Storyboard>
+        <Storyboard x:Key="SongFadeInStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetName="PlayerContent" 
+                Storyboard.TargetProperty="Opacity"
+                From="0.0" To="1.0" Duration="0:0:0.5" />
+        </Storyboard>
     </Window.Resources>
-    
+
     <Grid>
-        <DockPanel Background="#FF303030" Margin="0,0,0,45">
-            <Border Name="AlbumArtContainer" Padding="10" HorizontalAlignment="Left">
-                <Image Name="AlbumArt" Width="50" Height="50" Source="{Binding AlbumArt}"></Image>
-            </Border>
-            <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
-                <StackPanel Name="SongData">
-                    <Button Click="SongInfoButton_Click">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <ContentPresenter />
-                            </ControlTemplate>
-                        </Button.Template>
-                        <TextBlock Cursor="Hand" Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="18" Foreground="White" FontFamily="Noto Sans"/>
-                    </Button>
-                    <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="12" Foreground="LightGray" FontFamily="Noto Sans" />
-                    <TextBlock Name="RemainingTime" Foreground="LightGray"/>
-                </StackPanel>
-            </Border>
-            <Border Padding="10" Name="PlayButtonContainer" HorizontalAlignment="Right">
-                <Button Style="{StaticResource TransparentImageButton}" Name="PlayButton" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="50" Height="50">
-                    <Button.Background>
-                        <ImageBrush ImageSource="Resources/play_128.png"/>
-                    </Button.Background>
-                </Button>
-            </Border>
-        </DockPanel>
+        <Grid Background="#FF303030" Margin="0,0,0,45">
+            <DockPanel Name="PlayerContent">
+                <Border Name="AlbumArtContainer" Padding="10" HorizontalAlignment="Left">
+                    <Image Name="AlbumArt" Width="125" Height="125" Source="{Binding AlbumArt}"></Image>
+                </Border>
+                <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
+                    <StackPanel Name="SongData">
+                        <Button Click="SongInfoButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Button.Template>
+                            <TextBlock Cursor="Hand" Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="20" Foreground="White" FontFamily="Noto Sans" TextTrimming="CharacterEllipsis" ToolTip="{Binding Title}"/>
+                        </Button>
+                        <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="12" Foreground="LightGray" FontFamily="Noto Sans" TextTrimming="CharacterEllipsis" ToolTip="{Binding CircleArtist}" />
+                        <TextBlock Name="RemainingTime" Foreground="LightGray"/>
+                        <Button Name="PlayButton" Click="Button_Click" Style="{StaticResource TransparentImageButton}" Width="25" Height="25" HorizontalAlignment="Left" Margin="0,5,0,0">
+                            <Button.Background>
+                                <ImageBrush ImageSource="Resources/play_128.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </DockPanel>
+        </Grid>
+        
         <Grid Height="45" VerticalAlignment="Bottom" Background="#FF767676">
             <Grid.Effect>
                 <DropShadowEffect Direction="90" Opacity="0.2" ShadowDepth="4"/>

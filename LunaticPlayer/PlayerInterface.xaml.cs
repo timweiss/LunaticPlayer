@@ -6,6 +6,7 @@ using System.Windows.Media.Imaging;
 using LunaticPlayer.GRadioAPI;
 using System.Timers;
 using System.Windows.Markup;
+using System.Windows.Media.Animation;
 using LunaticPlayer.Classes;
 
 namespace LunaticPlayer
@@ -53,21 +54,45 @@ namespace LunaticPlayer
         }
 
         private bool firstRun = true;
+        private bool animationRun = false;
+
+        private Song previousSong;
 
         /// <summary>
         /// Updates any song information and UI stuff.
         /// </summary>
         private async void UpdateSong()
-        {   
+        {
+            if (_currentSong != null && !animationRun && _currentSong.EndDuration.TotalSeconds <= 3)
+            {
+                animationRun = true;
+                RunFadeOutAnimation();
+            }
+
             DataContext = _currentSong = await _songManager.CurrentSong();
             firstRun = false;
 
-            RemainingTime.Text = _currentSong.EndDuration.ToString("mm':'ss") + " remaining";
+            if (_currentSong != previousSong)
+            {
+                animationRun = false;
+                RunFadeInAnimation();
+            }
+
+            if (_isPlaying)
+            {
+                RemainingTime.Text = _currentSong.EndDuration.ToString("mm':'ss") + " remaining";
+            }
+            else
+            {
+                RemainingTime.Text = "Press play to start";
+            }
+
             if (_currentSong.AlbumArt != null)
             {
                 AlbumArtContainer.Padding = new Thickness(10);
                 AlbumArt.Source = _currentSong.AlbumArt;
-                AlbumArt.Width = 60;
+                AlbumArt.Width = 125;
+                AlbumArt.Height = 125;
             }
             else
             {
@@ -75,6 +100,8 @@ namespace LunaticPlayer
                 AlbumArt.Width = 0;
             }
             this.Title = $"LP: {_currentSong.Title} - {_currentSong.ArtistName}";
+
+            previousSong = _currentSong;
         }
 
         /// <summary>
@@ -182,6 +209,25 @@ namespace LunaticPlayer
         {
             SettingsWindow sWindow = new SettingsWindow(_songManager.SongHistory.Database);
             sWindow.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateSong();
+        }
+
+        private void RunFadeOutAnimation()
+        {
+            Storyboard sb = this.FindResource("SongFadeOutStoryboard") as Storyboard;
+            Storyboard.SetTarget(sb, this.PlayerContent);
+            sb.Begin();
+        }
+
+        private void RunFadeInAnimation()
+        {
+            Storyboard sb = this.FindResource("SongFadeInStoryboard") as Storyboard;
+            Storyboard.SetTarget(sb, this.PlayerContent);
+            sb.Begin();
         }
     }
 }
