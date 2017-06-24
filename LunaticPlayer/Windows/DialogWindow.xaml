@@ -19,7 +19,7 @@
                     <Button Click="OkButton_OnClick" Width="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right">Ok</Button>
                 </Border>
             </Grid>
-            <ScrollViewer DockPanel.Dock="Top">
+            <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
                 <Border Padding="10,10,10,0">
                     <TextBlock Name="ContentText" Foreground="#FFE6E6E6" FontSize="16" TextWrapping="Wrap"></TextBlock>
                 </Border>
