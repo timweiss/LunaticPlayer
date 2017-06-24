@@ -15,8 +15,7 @@ namespace LunaticPlayer.GRadioAPI
         public StructuredApiData CurrentStructuredApiData { get; private set; }
 
         /// <summary>
-        /// Converts the raw API data into the song class.
-        /// <seealso cref="LunaticPlayer.Classes.Song">
+        /// Converts the raw API data into the <seealso cref="Song" /> class.
         /// </summary>
         /// <returns>The song fetched from the API.</returns>
         public Song PlayingSong()
@@ -162,8 +161,6 @@ namespace LunaticPlayer.GRadioAPI
                 Console.WriteLine(e);
                 return false;
             }
-
-            return false;
         }
     }
 

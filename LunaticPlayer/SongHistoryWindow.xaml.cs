@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using LunaticPlayer.Classes;
 using LunaticPlayer.Player;
+using LunaticPlayer.Windows;
 using Newtonsoft.Json;
 
 namespace LunaticPlayer
@@ -13,10 +19,13 @@ namespace LunaticPlayer
     {
         private readonly SongHistoryManager _songHistory;
 
+        private List<Song> _allSongs;
+
         public SongHistoryWindow(SongHistoryManager shManager)
         {
             InitializeComponent();
             _songHistory = shManager;
+            _allSongs = _songHistory.SongHistory;
 
             PopulateList();
         }
@@ -85,6 +94,44 @@ namespace LunaticPlayer
         }
 
         private void ShowDetails_OnClick(object sender, RoutedEventArgs e)
+        {
+            HandleClick(CMenuAction.ShowDetails);
+        }
+
+        private void SearchQueryBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            var liveSearch = true;
+
+            if (e.Key == Key.Enter || liveSearch)
+            {
+                var box = sender as TextBox;
+
+                if (!string.IsNullOrWhiteSpace(box.Text))
+                {
+                    var normalized = box.Text.ToLower();
+
+                    SongList.ItemsSource = _allSongs.Where(s => s.Title.ToLower().Contains(normalized) || s.CircleArtist.ToLower().Contains(normalized));
+                }
+                else
+                {
+                    PopulateList();
+                }
+            }
+        }
+
+        private void HelpButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialogWindow = new DialogWindow();
+            dialogWindow.TitleText.Text = "Search Help";
+            dialogWindow.ContentText.Text = "Start typing to see search results. When the search field is empty, press enter to return to the full list.";
+            dialogWindow.Title = "Search Help";
+            dialogWindow.HeaderImage.Source = new BitmapImage(new Uri(@"/LunaticPlayer;component/Resources/help_white_92.png", UriKind.Relative));
+            dialogWindow.Owner = this;
+
+            dialogWindow.ShowDialog();
+        }
+
+        private void SongList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             HandleClick(CMenuAction.ShowDetails);
         }

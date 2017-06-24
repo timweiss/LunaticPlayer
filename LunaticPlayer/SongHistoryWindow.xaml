@@ -5,37 +5,79 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
-        Title="Song History" Height="300" Width="400">
+        Title="Song History" Height="360" Width="450">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="TransparentImageButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Blue" />
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Closable}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="#FF303030">
-        <ListBox x:Name="SongList" Background="{x:Null}" Margin="2" BorderBrush="{x:Null}">
-            <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Show details" Click="ShowDetails_OnClick"/>
-                    <Separator />
-                    <MenuItem Header="Copy #Artist #Circle #Title" Click="CopyItem_OnClick"/>
-                    <MenuItem Header="Copy JSON" Click="CopyJson_OnClick"/>
-                    <Separator />
-                    <MenuItem Header="Search on Google" Click="SearchOnGoogle_OnClick" />
-                    <MenuItem Header="Search for circle on TouhouWiki" Click="SearchOnTouhouWiki_OnClick"/>
-                </ContextMenu>
-            </ListBox.ContextMenu>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Margin="0,3,0,3">
-                        <TextBlock Text="{Binding Title}" FontSize="16" Foreground="White"/>
-                        <TextBlock Text="{Binding CircleArtist}" Foreground="#FFC9C9C9"/>
-                        <TextBlock FontSize="10" Foreground="#FFC9C9C9">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0:00}:{1:00;00} - {2:dd.MM. HH:mm}">
-                                    <Binding Path="Duration.Minutes"/>
-                                    <Binding Path="Duration.Seconds"/>
-                                    <Binding Path="StartTime"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <DockPanel>
+            <DockPanel Height="60" Background="#FF5F5F5F" Dock="Top">
+                <Border Padding="12">
+                    <Button Click="HelpButton_OnClick" ToolTip="Search Help" Style="{StaticResource TransparentImageButton}" Width="36" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="WhiteSmoke" RenderOptions.BitmapScalingMode="Fant">
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/help_black_92.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                </Border>
+                <Border Padding="0,10,10,10" Margin="0">
+                    <TextBox Name="SearchQueryBox" VerticalContentAlignment="Center" FontSize="18" KeyDown="SearchQueryBox_KeyDown">
+                        
+                    </TextBox>
+                </Border>
+            </DockPanel>
+
+            <ListBox x:Name="SongList" Background="{x:Null}" Margin="2" BorderBrush="{x:Null}" MouseDoubleClick="SongList_OnMouseDoubleClick">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Show details" Click="ShowDetails_OnClick"/>
+                        <Separator />
+                        <MenuItem Header="Copy #Artist #Circle #Title" Click="CopyItem_OnClick"/>
+                        <MenuItem Header="Copy JSON" Click="CopyJson_OnClick"/>
+                        <Separator />
+                        <MenuItem Header="Search on Google" Click="SearchOnGoogle_OnClick" />
+                        <MenuItem Header="Search for circle on TouhouWiki" Click="SearchOnTouhouWiki_OnClick"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,3,0,3">
+                            <TextBlock Text="{Binding Title}" FontSize="16" Foreground="White"/>
+                            <TextBlock Text="{Binding CircleArtist}" Foreground="#FFC9C9C9"/>
+                            <TextBlock FontSize="10" Foreground="#FFC9C9C9">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:00}:{1:00;00} - {2:dd.MM. HH:mm}">
+                                        <Binding Path="Duration.Minutes"/>
+                                        <Binding Path="Duration.Seconds"/>
+                                        <Binding Path="StartTime"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
     </Grid>
 </Window>
