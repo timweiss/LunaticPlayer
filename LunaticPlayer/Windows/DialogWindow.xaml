@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer.Windows"
         mc:Ignorable="d"
-        Title="Dialog Window" Height="250" Width="350">
+        Title="Dialog Window" Height="250" Width="350" WindowStartupLocation="CenterOwner">
     <Grid Background="#FF303030" >
         <DockPanel>
             <DockPanel Dock="Top" Height="50" Background="#FF707070">

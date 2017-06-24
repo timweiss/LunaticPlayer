@@ -126,6 +126,7 @@ namespace LunaticPlayer
             dialogWindow.ContentText.Text = "Start typing to see search results. When the search field is empty, press enter to return to the full list.";
             dialogWindow.Title = "Search Help";
             dialogWindow.HeaderImage.Source = new BitmapImage(new Uri(@"/LunaticPlayer;component/Resources/help_white_92.png", UriKind.Relative));
+            dialogWindow.Owner = this;
 
             dialogWindow.ShowDialog();
         }
