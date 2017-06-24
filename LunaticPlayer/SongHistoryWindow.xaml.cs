@@ -98,7 +98,7 @@ namespace LunaticPlayer
             HandleClick(CMenuAction.ShowDetails);
         }
 
-        private void SearchQueryBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void SearchQueryBox_KeyDown(object sender, KeyEventArgs e)
         {
             var liveSearch = true;
 
@@ -129,6 +129,11 @@ namespace LunaticPlayer
             dialogWindow.Owner = this;
 
             dialogWindow.ShowDialog();
+        }
+
+        private void SongList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            HandleClick(CMenuAction.ShowDetails);
         }
     }
 

@@ -66,6 +66,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Client\Configuration.cs" />
+    <Compile Include="Controls\VolumeBar.xaml.cs">
+      <DependentUpon>VolumeBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopupBanner.xaml.cs">
       <DependentUpon>PopupBanner.xaml</DependentUpon>
     </Compile>
@@ -81,6 +85,10 @@
     <Compile Include="Windows\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\VolumeBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PlayerInterface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -163,8 +171,8 @@
     <Resource Include="Resources\unmute_mat.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\mute_92.png" />
-    <Resource Include="Resources\unmute_92.png" />
+    <Resource Include="Resources\voloff_92.png" />
+    <Resource Include="Resources\volume_92.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\list_92.png" />
@@ -199,6 +207,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\help_white_92.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mute_92.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.105.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.105.0\build\net451\System.Data.SQLite.Core.targets')" />

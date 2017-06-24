@@ -10,6 +10,8 @@ using System.Windows.Markup;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using LunaticPlayer.Classes;
+using LunaticPlayer.Client;
+using LunaticPlayer.Controls;
 
 namespace LunaticPlayer
 {
@@ -40,6 +42,7 @@ namespace LunaticPlayer
             _interfaceTimer.Interval = 1000;
             _interfaceTimer.Elapsed += ReloadInterface;
 
+            _radioPlayer.SetVolume(Configuration.GetInstance().Data.Volume);
 
             LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
@@ -134,6 +137,7 @@ namespace LunaticPlayer
             else
             {
                 _radioPlayer.PlayFromUrl(ApiClient.StreamUrl);
+                _radioPlayer.SetVolume(Configuration.GetInstance().Data.Volume);
                 _isPlaying = true;
                 TBPlayButton.Description = "Stop";
 
@@ -153,7 +157,7 @@ namespace LunaticPlayer
         /// </summary>
         private void MuteRadioStream()
         {
-            _radioPlayer.ToggleMute();
+            _radioPlayer.ToggleMute(Configuration.GetInstance().Data.Volume);
 
             if (_radioPlayer.Muted)
             {
@@ -161,7 +165,7 @@ namespace LunaticPlayer
                 var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/unmute_mat.ico";
                 TBMuteButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
 
-                var appUri = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/unmute_92.png");
+                var appUri = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/mute_92.png");
                 MuteButton.Background = new ImageBrush(new BitmapImage(appUri));
             }
             else
@@ -170,10 +174,12 @@ namespace LunaticPlayer
                 var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/mute_92.png";
                 TBMuteButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
 
-                var appUri = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/mute_92.png");
+                var appUri = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/voloff_92.png");
                 MuteButton.Background = new ImageBrush(new BitmapImage(appUri));
             }
         }
+
+        private VolumeBar volumeBar;
 
         #region Button Events
 
@@ -215,6 +221,35 @@ namespace LunaticPlayer
             sWindow.Show();
         }
 
+        private void VolumeButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (volumeBar == null)
+            {
+                var vol = Configuration.GetInstance().Data.Volume;
+                volumeBar = new VolumeBar(new VolumeBarData() { Volume = vol });
+                volumeBar.Height = 50;
+                volumeBar.Width = 100;
+                volumeBar.OnValueChange = OnVolumeChange;
+            }
+
+            if (this.ButtonToolbar.Children.Contains(volumeBar))
+            {
+                if (volumeBar.Visibility == Visibility.Visible)
+                {
+                    volumeBar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    volumeBar.Visibility = Visibility.Visible;
+                }
+
+            }
+            else
+            {
+                this.ButtonToolbar.Children.Insert(1, volumeBar);
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -224,6 +259,7 @@ namespace LunaticPlayer
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
+            Configuration.GetInstance().Save();
             _radioPlayer.Stop();
             Application.Current.Shutdown();
         }
@@ -296,6 +332,12 @@ namespace LunaticPlayer
             Storyboard sb = this.FindResource("SongFadeInStoryboard") as Storyboard;
             Storyboard.SetTarget(sb, this.PlayerContent);
             sb.Begin();
+        }
+
+        private void OnVolumeChange()
+        {
+            _radioPlayer.SetVolume(volumeBar.Data.Volume);
+            Configuration.GetInstance().Data.Volume = Math.Round(volumeBar.Data.Volume, 2);
         }
     }
 }

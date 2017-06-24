@@ -7,7 +7,7 @@ namespace LunaticPlayer.Player
     {
         private readonly MediaPlayer _player;
 
-        public bool Muted => _player.Volume == 0.0;
+        public bool Muted { get; set; }
 
         public double Volume => _player.Volume;
 
@@ -38,6 +38,20 @@ namespace LunaticPlayer.Player
         public void ToggleMute()
         {
             _player.Volume = _player.Volume == 0.0 ? 0.5 : 0.0;
+        }
+
+        public void ToggleMute(double volume)
+        {
+            if (Muted)
+            {
+                _player.Volume = volume;
+                Muted = false;
+            }
+            else
+            {
+                _player.Volume = 0.0;
+                Muted = true;
+            }
         }
     }
 }

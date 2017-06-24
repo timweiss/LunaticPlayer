@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
+        xmlns:controls="clr-namespace:LunaticPlayer.Controls"
         mc:Ignorable="d"
         Title="Lunatic Player" Height="245" Width="375" Closed="Window_Closed" Loaded="Window_Loaded">
     
@@ -79,20 +80,27 @@
                 </Border>
             </DockPanel>
         </Grid>
-        
+
         <Grid Height="45" VerticalAlignment="Bottom" Background="#FF767676">
             <Grid.Effect>
                 <DropShadowEffect Direction="90" Opacity="0.2" ShadowDepth="4"/>
             </Grid.Effect>
-            <StackPanel Orientation="Horizontal" Height="45" VerticalAlignment="Bottom" Margin="0,0,50,0">
-                <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource TransparentImageButton}" Name="MuteButton" Click="MuteButton_Click">
+            <StackPanel Name="ButtonToolbar" Orientation="Horizontal" Height="45" VerticalAlignment="Bottom" Margin="0,0,50,0">
+                <Border ToolTip="Change Volume" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource TransparentImageButton}" Name="VolumeMeterButton" Click="VolumeButton_OnClick" >
                         <Button.Background>
-                            <ImageBrush ImageSource="Resources/mute_92.png"/>
+                            <ImageBrush ImageSource="Resources/volume_92.png"/>
                         </Button.Background>
                     </Button>
                 </Border>
-                <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                <Border ToolTip="Mute" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource TransparentImageButton}" Name="MuteButton" Click="MuteButton_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="Resources/voloff_92.png"/>
+                        </Button.Background>
+                    </Button>
+                </Border>
+                <Border ToolTip="Show History" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
                     <Button Style="{StaticResource TransparentImageButton}" Name="SongListButton" Click="SongListButton_OnClick" >
                         <Button.Background>
                             <ImageBrush ImageSource="Resources/list_92.png"/>
@@ -100,8 +108,8 @@
                     </Button>
                 </Border>
             </StackPanel>
-            
-            <Border Padding="5" Height="45" Width="45" HorizontalAlignment="Right">
+
+            <Border ToolTip="Settings" Padding="5" Height="45" Width="45" HorizontalAlignment="Right">
                 <Button Style="{StaticResource TransparentImageButton}" Name="OptionsButton" Click="OptionsButton_OnClick" >
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/settings_92.png"/>
