@@ -4,8 +4,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using LunaticPlayer.Classes;
 using LunaticPlayer.Player;
+using LunaticPlayer.Windows;
 using Newtonsoft.Json;
 
 namespace LunaticPlayer
@@ -115,6 +117,17 @@ namespace LunaticPlayer
                     PopulateList();
                 }
             }
+        }
+
+        private void HelpButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialogWindow = new DialogWindow();
+            dialogWindow.TitleText.Text = "Search Help";
+            dialogWindow.ContentText.Text = "Start typing to see search results. When the search field is empty, press enter to return to the full list.";
+            dialogWindow.Title = "Search Help";
+            dialogWindow.HeaderImage.Source = new BitmapImage(new Uri(@"/LunaticPlayer;component/Resources/help_white_92.png", UriKind.Relative));
+
+            dialogWindow.ShowDialog();
         }
     }
 

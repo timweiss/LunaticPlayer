@@ -35,7 +35,7 @@
         <DockPanel>
             <DockPanel Height="60" Background="#FF5F5F5F" Dock="Top">
                 <Border Padding="12">
-                    <Button ToolTip="Help" Style="{StaticResource TransparentImageButton}" Width="36" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="WhiteSmoke" RenderOptions.BitmapScalingMode="Fant">
+                    <Button Click="HelpButton_OnClick" ToolTip="Help" Style="{StaticResource TransparentImageButton}" Width="36" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="WhiteSmoke" RenderOptions.BitmapScalingMode="Fant">
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="Resources/help_black_92.png"/>
                         </Button.OpacityMask>
