@@ -50,8 +50,18 @@ namespace LunaticPlayer.Player
         }
 
         /// <summary>
-        /// Loads the song history from the JSON file.
+        /// Adds the last song to the database.
         /// </summary>
+        private void StoreHistory(Song lastSong)
+        {
+            Database.AddSong(lastSong);
+        }
+
+        /// <summary>
+        /// Loads the song history from the JSON file. 
+        /// This should not be used in favor of storing history in the database.
+        /// </summary>
+        [Obsolete]
         private void InitializeHistoryJson()
         {
             if (System.IO.File.Exists("songhist.json"))
@@ -63,16 +73,10 @@ namespace LunaticPlayer.Player
         }
 
         /// <summary>
-        /// Adds the last song to the database.
-        /// </summary>
-        private void StoreHistory(Song lastSong)
-        {
-            Database.AddSong(lastSong);
-        }
-
-        /// <summary>
         /// Stores the current state of the song history in the JSON file.
+        /// As with <see cref="InitializeHistoryJson"/>, this shouldn't be used in favor of the database.
         /// </summary>
+        [Obsolete]
         private void StoreHistoryJson()
         {
             var json = JsonConvert.SerializeObject(SongHistory);

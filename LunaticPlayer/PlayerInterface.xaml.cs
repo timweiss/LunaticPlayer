@@ -18,9 +18,9 @@ namespace LunaticPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Player.RadioPlayer _radioPlayer;
-        private ApiClient _apiClient;
-        private Player.SongManager _songManager;
+        private readonly Player.RadioPlayer _radioPlayer;
+        private readonly ApiClient _apiClient;
+        private readonly Player.SongManager _songManager;
 
         private bool _isPlaying;
 
@@ -76,8 +76,16 @@ namespace LunaticPlayer
 
             if (_currentSong != previousSong)
             {
-                animationRun = false;
-                RunFadeInAnimation();
+                if (previousSong == null)
+                {
+                    animationRun = false;
+                    RunFadeInAnimation();
+                }
+                else if (previousSong.ApiSongId != _currentSong.ApiSongId) // prevents continuous fade in of same song
+                {
+                    animationRun = false;
+                    RunFadeInAnimation();
+                }
             }
 
             if (_isPlaying)
@@ -167,8 +175,7 @@ namespace LunaticPlayer
             }
         }
 
-
-        // Events
+        #region Button Events
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -190,17 +197,6 @@ namespace LunaticPlayer
             MuteRadioStream();
         }
 
-        private void SongListButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            SongHistoryWindow sWindow = new SongHistoryWindow(_songManager.SongHistory);
-            sWindow.Show();
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
         private void SongInfoButton_Click(object sender, RoutedEventArgs e)
         {
             SongDetailsWindow sdWindow = new SongDetailsWindow(_currentSong);
@@ -211,6 +207,25 @@ namespace LunaticPlayer
         {
             SettingsWindow sWindow = new SettingsWindow(_songManager.SongHistory.Database);
             sWindow.Show();
+        }
+
+        private void SongListButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SongHistoryWindow sWindow = new SongHistoryWindow(_songManager.SongHistory);
+            sWindow.Show();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Stops the radio player and closes all open windows (since PlayerInterface is the main window).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _radioPlayer.Stop();
+            Application.Current.Shutdown();
         }
 
         private PopupBanner _messageBanner;
@@ -224,15 +239,22 @@ namespace LunaticPlayer
         /// TODO: add ability to refresh player after connection failiure
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!await _apiClient.CheckApiAccess())
+            var apiAccess = await _apiClient.CheckApiAccess();
+
+            if (!apiAccess)
             {
-                _messageBanner = new PopupBanner(new PopupBannerData
+                var bannerData = new PopupBannerData()
                 {
-                    Message = "Could not connect to GR",
                     Closable = false,
                     Level = PopupLevel.Error,
                     CloseAction = ClosePopupBanner
-                });
+                };
+
+                if (!apiAccess)
+                    bannerData.Message = "Could not connect to the API";
+
+                _messageBanner = new PopupBanner(bannerData);
+
                 _messageBanner.Height = 40;
                 _messageBanner.VerticalAlignment = VerticalAlignment.Top;
                 _messageBanner.Effect = new DropShadowEffect() {BlurRadius = 20, Direction = -180};

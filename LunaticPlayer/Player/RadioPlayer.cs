@@ -26,6 +26,7 @@ namespace LunaticPlayer.Player
         public void Stop()
         {
             _player.Stop();
+            _player.Close();
         }
 
         //TODO: Lautstärke richtig einstellen

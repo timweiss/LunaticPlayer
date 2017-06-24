@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using LunaticPlayer.Classes;
 using LunaticPlayer.Player;
 using Newtonsoft.Json;
@@ -13,10 +17,13 @@ namespace LunaticPlayer
     {
         private readonly SongHistoryManager _songHistory;
 
+        private List<Song> _allSongs;
+
         public SongHistoryWindow(SongHistoryManager shManager)
         {
             InitializeComponent();
             _songHistory = shManager;
+            _allSongs = _songHistory.SongHistory;
 
             PopulateList();
         }
@@ -87,6 +94,27 @@ namespace LunaticPlayer
         private void ShowDetails_OnClick(object sender, RoutedEventArgs e)
         {
             HandleClick(CMenuAction.ShowDetails);
+        }
+
+        private void SearchQueryBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var liveSearch = true;
+
+            if (e.Key == Key.Enter || liveSearch)
+            {
+                var box = sender as TextBox;
+
+                if (!string.IsNullOrWhiteSpace(box.Text))
+                {
+                    var normalized = box.Text.ToLower();
+
+                    SongList.ItemsSource = _allSongs.Where(s => s.Title.ToLower().Contains(normalized) || s.CircleArtist.ToLower().Contains(normalized));
+                }
+                else
+                {
+                    PopulateList();
+                }
+            }
         }
     }
 
