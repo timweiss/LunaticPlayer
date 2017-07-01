@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:LunaticPlayer"
         xmlns:controls="clr-namespace:LunaticPlayer.Controls"
         mc:Ignorable="d"
-        Title="Lunatic Player" Height="245" Width="375" Closed="Window_Closed" Loaded="Window_Loaded">
-    
+        Title="Lunatic Player" Height="245" Width="375" Closed="Window_Closed" Loaded="Window_Loaded" UseLayoutRounding="True">
+
     <Window.Resources>
         <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
         <Style TargetType="Button" x:Key="TransparentImageButton">
@@ -24,6 +24,46 @@
                                 <Setter Property="Foreground" Value="Blue" />
                                 <Setter Property="Cursor" Value="Hand" />
                                 <Setter Property="BorderBrush" Value="DarkGray"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="WhiteBackgroundRoundedImageButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" RecognizesAccessKey="True" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Blue" />
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="BorderlessImageButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Blue" />
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="BorderBrush" Value="Transparent"></Setter>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -50,14 +90,47 @@
                 Storyboard.TargetProperty="Opacity"
                 From="0.0" To="1.0" Duration="0:0:0.5" />
         </Storyboard>
+        <SolidColorBrush x:Key="GR-Gradient" Color="#FFDDDDDD"/>
+        <LinearGradientBrush x:Key="GR-Gradient-New" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF3B1F70" Offset="0"/>
+            <GradientStop Color="#FF551567" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GR-Gradient-Angled" EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform Angle="100" CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#B23B1F70" Offset="0"/>
+            <GradientStop Color="#B2551567" Offset="1"/>
+        </LinearGradientBrush>
     </Window.Resources>
 
     <Grid>
         <Grid Name="MainContent" Background="#FF303030" Margin="0,0,0,45">
+            <Grid Margin="-20" Name="MainBlurredBg">
+                <Grid.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding AlbumArt}"></ImageBrush>
+                </Grid.Background>
+                <Grid.Effect>
+                    <BlurEffect Radius="30"></BlurEffect>
+                </Grid.Effect>
+            </Grid>
+            <Grid Name="MainGradientOverlay" Background="{DynamicResource GR-Gradient-Angled}">
+
+            </Grid>
+            <Grid Name="MainDarkOverlay" Background="#66000000"/>
             <StackPanel Name="BannerContainer" Height="50" VerticalAlignment="Top"></StackPanel>
             <DockPanel Name="PlayerContent">
                 <Border Name="AlbumArtContainer" Padding="10" HorizontalAlignment="Left">
-                    <Image Name="AlbumArt" Width="125" Height="125" Source="{Binding AlbumArt}"></Image>
+                    <Image RenderOptions.BitmapScalingMode="HighQuality" Name="AlbumArt" Width="125" Height="125" Source="{Binding AlbumArt}">
+                        <Image.Effect>
+                            <DropShadowEffect Opacity="0.5" Direction="90" BlurRadius="20" ShadowDepth="0"/>
+                        </Image.Effect>
+                    </Image>
                 </Border>
                 <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
                     <StackPanel Name="SongData">
@@ -70,50 +143,80 @@
                             <TextBlock Cursor="Hand" Name="SongTitle" Text="{Binding Title}" VerticalAlignment="Top" FontSize="20" Foreground="White" FontFamily="Noto Sans" TextTrimming="CharacterEllipsis" ToolTip="{Binding Title}"/>
                         </Button>
                         <TextBlock Name="Artist" Text="{Binding CircleArtist}" VerticalAlignment="Top" FontSize="12" Foreground="LightGray" FontFamily="Noto Sans" TextTrimming="CharacterEllipsis" ToolTip="{Binding CircleArtist}" />
-                        <TextBlock Name="RemainingTime" Foreground="LightGray"/>
-                        <Button Name="PlayButton" Click="Button_Click" Style="{StaticResource TransparentImageButton}" Width="25" Height="25" HorizontalAlignment="Left" Margin="0,5,0,0">
-                            <Button.Background>
-                                <ImageBrush ImageSource="Resources/play_128.png"/>
-                            </Button.Background>
-                        </Button>
+                        <DockPanel>
+                            <TextBlock Name="RemainingTime" Foreground="LightGray"/>
+                            <TextBlock Name="SongTime" Foreground="#FFEEEEEE" HorizontalAlignment="Right"/>
+                        </DockPanel>
+                        <Border HorizontalAlignment="Left"  Width="25" Height="25" Margin="0,5,0,0" CornerRadius="3" Background="White">
+                            <Border.Effect>
+                                <DropShadowEffect Direction="90" BlurRadius="10" ShadowDepth="0" Opacity="0.3"/>
+                            </Border.Effect>
+                            <Button RenderOptions.BitmapScalingMode="Fant" Name="PlayButton" Click="Button_Click" Style="{StaticResource BorderlessImageButton}" Background="#FF3B1F70">
+                                <Button.OpacityMask>
+                                    <ImageBrush ImageSource="Resources/lp-play-92.png"/>
+                                </Button.OpacityMask>
+                            </Button>
+                        </Border>
+
                     </StackPanel>
                 </Border>
             </DockPanel>
         </Grid>
 
-        <Grid Height="45" VerticalAlignment="Bottom" Background="#FF767676">
+        <Grid ClipToBounds="True" Height="45" VerticalAlignment="Bottom">
             <Grid.Effect>
                 <DropShadowEffect Direction="90" Opacity="0.2" ShadowDepth="4"/>
             </Grid.Effect>
+            <Grid Margin="-10">
+                <Grid.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding AlbumArt}"></ImageBrush>
+                </Grid.Background>
+                <Grid.Effect>
+                    <BlurEffect Radius="30"></BlurEffect>
+                </Grid.Effect>
+            </Grid>
+            <Grid Name="ButtonBarBlurOverlay" Background="#BFEEEEEE"></Grid>
             <StackPanel Name="ButtonToolbar" Orientation="Horizontal" Height="45" VerticalAlignment="Bottom" Margin="0,0,50,0">
                 <Border ToolTip="Change Volume" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource TransparentImageButton}" Name="VolumeMeterButton" Click="VolumeButton_OnClick" >
-                        <Button.Background>
-                            <ImageBrush ImageSource="Resources/volume_92.png"/>
-                        </Button.Background>
+                    <Button RenderOptions.BitmapScalingMode="Fant" Style="{StaticResource BorderlessImageButton}" Name="VolumeMeterButton" Click="VolumeButton_OnClick" Background="{DynamicResource GR-Gradient-New}" >
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/lp-vol-92.png"/>
+                        </Button.OpacityMask>
                     </Button>
                 </Border>
-                <Border ToolTip="Mute" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource TransparentImageButton}" Name="MuteButton" Click="MuteButton_Click">
-                        <Button.Background>
+                <Border Visibility="Collapsed" ToolTip="Mute" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                    <Button RenderOptions.BitmapScalingMode="Fant" Style="{StaticResource BorderlessImageButton}" Name="MuteButton" Click="MuteButton_Click" Background="{DynamicResource GR-Gradient-New}">
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
                             <ImageBrush ImageSource="Resources/voloff_92.png"/>
-                        </Button.Background>
+                        </Button.OpacityMask>
                     </Button>
                 </Border>
                 <Border ToolTip="Show History" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource TransparentImageButton}" Name="SongListButton" Click="SongListButton_OnClick" >
-                        <Button.Background>
-                            <ImageBrush ImageSource="Resources/list_92.png"/>
-                        </Button.Background>
+                    <Button Style="{StaticResource BorderlessImageButton}" Name="SongListButton" Click="SongListButton_OnClick" Background="{DynamicResource GR-Gradient-New}" >
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/lp-list-92.png"/>
+                        </Button.OpacityMask>
                     </Button>
                 </Border>
             </StackPanel>
 
             <Border ToolTip="Settings" Padding="5" Height="45" Width="45" HorizontalAlignment="Right">
-                <Button Style="{StaticResource TransparentImageButton}" Name="OptionsButton" Click="OptionsButton_OnClick" >
-                    <Button.Background>
-                        <ImageBrush ImageSource="Resources/settings_92.png"/>
-                    </Button.Background>
+                <Button RenderOptions.BitmapScalingMode="Fant" Style="{StaticResource BorderlessImageButton}" Name="OptionsButton" Click="OptionsButton_OnClick" Background="{DynamicResource GR-Gradient-New}" >
+                    <Button.Effect>
+                        <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                    </Button.Effect>
+                    <Button.OpacityMask>
+                        <ImageBrush ImageSource="Resources/lp-settings-92.png"/>
+                    </Button.OpacityMask>
                 </Button>
             </Border>
         </Grid>

@@ -93,11 +93,13 @@ namespace LunaticPlayer
 
             if (_isPlaying)
             {
-                RemainingTime.Text = _currentSong.EndDuration.ToString("mm':'ss") + " remaining";
+                RemainingTime.Text = "-" + _currentSong.EndDuration.ToString("mm':'ss");
+                SongTime.Text = _currentSong.Duration.ToString("mm':'ss");
             }
             else
             {
                 RemainingTime.Text = "Press play to start";
+                SongTime.Text = "";
             }
 
             if (_currentSong.AlbumArt != null)
@@ -131,8 +133,8 @@ namespace LunaticPlayer
                 var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/play_mat.ico";
                 TBPlayButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
 
-                var button = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/play_128.png");
-                PlayButton.Background = new ImageBrush(new BitmapImage(button));
+                var button = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/lp-play-92.png");
+                PlayButton.OpacityMask = new ImageBrush(new BitmapImage(button));
             }
             else
             {
@@ -144,8 +146,8 @@ namespace LunaticPlayer
                 var packUri = "pack://application:,,,/LunaticPlayer;component/Resources/pause_mat.ico";
                 TBPlayButton.ImageSource = new ImageSourceConverter().ConvertFromString(packUri) as ImageSource;
 
-                var button = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/stop_128.png");
-                PlayButton.Background = new ImageBrush(new BitmapImage(button));
+                var button = new Uri("pack://application:,,,/LunaticPlayer;component/Resources/lp-stop-92.png");
+                PlayButton.OpacityMask = new ImageBrush(new BitmapImage(button));
             }
 
             UpdateSong();
