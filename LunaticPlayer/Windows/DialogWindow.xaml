@@ -9,7 +9,7 @@
     <Grid Background="Black">
         <Grid Background="{DynamicResource GR-Gradient-Fade}" >
             <DockPanel>
-                <DockPanel Dock="Top" Height="50" Background="#A5232323">
+                <DockPanel Dock="Top" Height="50" Background="#994F4F4F">
                     <DockPanel.Effect>
                         <DropShadowEffect Direction="-90" BlurRadius="20" Opacity="0.5"></DropShadowEffect>
                     </DockPanel.Effect>

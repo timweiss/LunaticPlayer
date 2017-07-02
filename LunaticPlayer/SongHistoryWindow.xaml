@@ -30,21 +30,32 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="NoBorderTextBox" TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
     </Window.Resources>
-    <Grid Background="#FF303030">
-        <DockPanel>
-            <DockPanel Height="60" Background="#FF5F5F5F" Dock="Top">
+    <Grid Background="Black">
+        <DockPanel Background="{DynamicResource GR-Gradient-Fade}">
+            <DockPanel Height="60" Background="#BFEEEEEE" Dock="Top">
                 <Border Padding="12">
-                    <Button Click="HelpButton_OnClick" ToolTip="Search Help" Style="{StaticResource TransparentImageButton}" Width="36" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="WhiteSmoke" RenderOptions.BitmapScalingMode="Fant">
+                    <Button Click="HelpButton_OnClick" ToolTip="Search Help" Style="{DynamicResource BorderlessImageButton}" Width="36" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="{DynamicResource GR-Gradient}" RenderOptions.BitmapScalingMode="Fant">
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="Resources/help_black_92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
                 <Border Padding="0,10,10,10" Margin="0">
-                    <TextBox Name="SearchQueryBox" VerticalContentAlignment="Center" FontSize="18" KeyDown="SearchQueryBox_KeyDown">
-                        
-                    </TextBox>
+                    <Border Background="#B2FFFFFF" BorderBrush="#FFABADB3" CornerRadius="4">
+                        <Border.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.2" BlurRadius="20"/>
+                        </Border.Effect>
+                        <TextBox Style="{StaticResource NoBorderTextBox}"  Background="Transparent" Name="SearchQueryBox" VerticalContentAlignment="Center" FontSize="18" KeyDown="SearchQueryBox_KeyDown" BorderBrush="{x:Null}" SelectionBrush="#B2551567" Padding="3,0,0,0"  >
+                            
+                        </TextBox>
+                    </Border>
                 </Border>
             </DockPanel>
 

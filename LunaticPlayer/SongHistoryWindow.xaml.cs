@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.Classes;
+using LunaticPlayer.Helpers;
 using LunaticPlayer.Player;
 using LunaticPlayer.Windows;
 using Newtonsoft.Json;
@@ -68,25 +69,7 @@ namespace LunaticPlayer
 
             var song = (Song)SongList.Items[SongList.SelectedIndex];
 
-            switch (action)
-            {
-                case CMenuAction.CopyToClipboard:
-                    Clipboard.SetText($"Artist: {song.ArtistName}, Circle: {song.CircleName}, Title: {song.Title}");
-                    break;
-                case CMenuAction.CopyJsonToClipboard:
-                    Clipboard.SetText(JsonConvert.SerializeObject(song));
-                    break;
-                case CMenuAction.SearchOnGoogle:
-                    System.Diagnostics.Process.Start($"https://www.google.com/search?q={song.ArtistName}+{song.Title}");
-                    break;
-                case CMenuAction.SearchOnTw:
-                    System.Diagnostics.Process.Start($"https://en.touhouwiki.net/index.php?search={song.CircleName}");
-                    break;
-                case CMenuAction.ShowDetails:
-                    var details = new SongDetailsWindow(song);
-                    details.Show();
-                    break;
-            }
+            SongActions.HandleClick(action, song);
 
 #if DEBUG
             Console.WriteLine($"[HistoryWindow]: Action Performed - {action}");

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.Classes;
+using LunaticPlayer.Helpers;
 using LunaticPlayer.Player;
 
 namespace LunaticPlayer
@@ -43,6 +44,30 @@ namespace LunaticPlayer
                     AlbumArt.Source = bmi;
                 }
             }
+            else
+            {
+                AlbumArtContainer.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void CopyToClipboard_OnClick(object sender, RoutedEventArgs e)
+        {
+            SongActions.HandleClick(CMenuAction.CopyToClipboard, _displayedSong);
+        }
+
+        private void CopyJsonButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SongActions.HandleClick(CMenuAction.CopyJsonToClipboard, _displayedSong);
+        }
+
+        private void SearchOnGoogleButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SongActions.HandleClick(CMenuAction.SearchOnGoogle, _displayedSong);
+        }
+
+        private void SearchOnThWiki_OnClick(object sender, RoutedEventArgs e)
+        {
+            SongActions.HandleClick(CMenuAction.SearchOnTw, _displayedSong);
         }
     }
 }

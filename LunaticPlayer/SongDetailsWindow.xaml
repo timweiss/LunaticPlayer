@@ -5,12 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         mc:Ignorable="d"
-        Title="Details" Height="295" Width="360">
-    <Grid Background="#FF303030">
-        <StackPanel>
-            <DockPanel>
-                <Border Name="AlbumArtContainer" HorizontalAlignment="Left" Margin="10,10,0,10">
-                    <Image Name="AlbumArt" Width="100" Height="100" Source="{Binding AlbumArt}"></Image>
+        Title="Details" Height="335" Width="360">
+    <Grid Background="Black">
+        <DockPanel Background="{DynamicResource GR-Gradient-Fade}">
+            <DockPanel Dock="Top">
+                <Border  Name="AlbumArtContainer" HorizontalAlignment="Left" Margin="10,10,0,10">
+                    <Image Name="AlbumArt" Width="100" Height="100" Source="{Binding AlbumArt}">
+                        <Image.Effect>
+                            <DropShadowEffect BlurRadius="20" Direction="-90" Opacity="0.3"></DropShadowEffect>
+                        </Image.Effect>
+                    </Image>
                 </Border>
                 <Border Name="SongDataContainer" Padding="10" VerticalAlignment="Center">
                     <StackPanel Name="SongData">
@@ -20,6 +24,48 @@
                     </StackPanel>
                 </Border>
             </DockPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Background="#BFFFFFFF">
+                <Border ToolTip="Copy Metadata to Clipboard" Padding="10" Height="40" Width="40" HorizontalAlignment="Left">
+                    <Button RenderOptions.BitmapScalingMode="Fant" Style="{DynamicResource BorderlessImageButton}" Name="CopyToClipboard" Click="CopyToClipboard_OnClick" Background="{DynamicResource GR-Gradient}" >
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/lp-copy-92.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                </Border>
+                <Border ToolTip="Copy JSON" Padding="5" Height="40" Width="40" HorizontalAlignment="Left">
+                    <Button RenderOptions.BitmapScalingMode="Fant" Style="{DynamicResource BorderlessImageButton}" Name="CopyJsonButton" Click="CopyJsonButton_OnClick" Background="{DynamicResource GR-Gradient}" >
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/lp-code-92.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                </Border>
+                <Border ToolTip="Search on Google" Padding="5" Height="40" Width="40" HorizontalAlignment="Left">
+                    <Button RenderOptions.BitmapScalingMode="Fant" Style="{DynamicResource BorderlessImageButton}" Name="SearchOnGoogleButton" Click="SearchOnGoogleButton_OnClick" Background="{DynamicResource GR-Gradient}" >
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/lp-search-92.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                </Border>
+                <Border ToolTip="Search on TouhouWiki" Padding="5" Height="40" Width="40" HorizontalAlignment="Left">
+                    <Button RenderOptions.BitmapScalingMode="Fant" Style="{DynamicResource BorderlessImageButton}" Name="SearchOnThWiki" Click="SearchOnThWiki_OnClick" Background="{DynamicResource GR-Gradient}" >
+                        <Button.Effect>
+                            <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
+                        </Button.Effect>
+                        <Button.OpacityMask>
+                            <ImageBrush ImageSource="Resources/lp-search-92.png"/>
+                        </Button.OpacityMask>
+                    </Button>
+                </Border>
+            </StackPanel>
             <Grid>
                 <Border Padding="10">
                     <StackPanel>
@@ -67,6 +113,6 @@
                     </StackPanel>
                 </Border>
             </Grid>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </Window>
