@@ -4,6 +4,46 @@
              xmlns:local="clr-namespace:LunaticPlayer"
              StartupUri="PlayerInterface.xaml">
     <Application.Resources>
-         
+
+        <LinearGradientBrush x:Key="GR-Gradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF3B1F70" Offset="0"/>
+            <GradientStop Color="#FF551567" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="GR-Gradient-Fade" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#B23B1F70" Offset="0"/>
+            <GradientStop Color="#B2551567" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Style TargetType="{x:Type Button}" x:Key="WhiteButton">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="#FF3B1F70" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="3" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <ContentPresenter x:Name="ButtonContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray" />
+                                <Setter Property="Foreground" Value="#FF551567" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="DarkGray" />
+                                <Setter Property="Foreground" Value="#8521A1" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

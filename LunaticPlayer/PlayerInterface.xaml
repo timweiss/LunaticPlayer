@@ -90,7 +90,6 @@
                 Storyboard.TargetProperty="Opacity"
                 From="0.0" To="1.0" Duration="0:0:0.5" />
         </Storyboard>
-        <SolidColorBrush x:Key="GR-Gradient" Color="#FFDDDDDD"/>
         <LinearGradientBrush x:Key="GR-Gradient-New" EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF3B1F70" Offset="0"/>
             <GradientStop Color="#FF551567" Offset="1"/>
