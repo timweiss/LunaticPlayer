@@ -186,6 +186,7 @@
                         </Button.OpacityMask>
                     </Button>
                 </Border>
+                <Border Name="VolumeBarContainer" ToolTip="Volume" Padding="5" Height="45"></Border>
                 <Border Visibility="Collapsed" ToolTip="Mute" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
                     <Button RenderOptions.BitmapScalingMode="Fant" Style="{DynamicResource BorderlessImageButton}" Name="MuteButton" Click="MuteButton_Click" Background="{DynamicResource GR-Gradient-New}">
                         <Button.Effect>

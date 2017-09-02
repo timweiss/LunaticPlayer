@@ -229,12 +229,13 @@ namespace LunaticPlayer
             {
                 var vol = Configuration.GetInstance().Data.Volume;
                 volumeBar = new VolumeBar(new VolumeBarData() { Volume = vol });
-                volumeBar.Height = 50;
+                volumeBar.Height = 21;
                 volumeBar.Width = 100;
                 volumeBar.OnValueChange = OnVolumeChange;
+                volumeBar.Effect = new DropShadowEffect() { Direction = -90, Opacity = 0.4, BlurRadius = 20, };
             }
 
-            if (this.ButtonToolbar.Children.Contains(volumeBar))
+            if (this.VolumeBarContainer.Child == volumeBar)
             {
                 if (volumeBar.Visibility == Visibility.Visible)
                 {
@@ -248,7 +249,7 @@ namespace LunaticPlayer
             }
             else
             {
-                this.ButtonToolbar.Children.Insert(1, volumeBar);
+                this.VolumeBarContainer.Child = volumeBar;
             }
         }
 

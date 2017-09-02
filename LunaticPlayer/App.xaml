@@ -10,6 +10,9 @@
             <GradientStop Color="#FF551567" Offset="1"/>
         </LinearGradientBrush>
 
+        <SolidColorBrush x:Key="GR-BrandLight" Color="#B2551567"></SolidColorBrush>
+        <SolidColorBrush x:Key="GR-BrandColor" Color="#FF3B1F70"></SolidColorBrush>
+        
         <LinearGradientBrush x:Key="GR-Gradient-Fade" EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#B23B1F70" Offset="0"/>
             <GradientStop Color="#B2551567" Offset="1"/>
