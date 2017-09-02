@@ -15,15 +15,25 @@ namespace LunaticPlayer.Database
     {
         private SQLiteConnection _sqliteDb;
 
+        private string _basePath = ".\\";
+
+        public void SetBasePath(string path)
+        {
+            _basePath = path;
+        }
+
         /// <summary>
         /// Initializes the database connection and creates the required tables.
         /// </summary>
         public void Initialize()
         {
-            if(!File.Exists("songhist.db"))
-                SQLiteConnection.CreateFile("songhist.db");
+            if (!Directory.Exists(_basePath))
+                Directory.CreateDirectory(_basePath);
 
-            _sqliteDb = new SQLiteConnection("Data Source=songhist.db;Version=3;");
+            if(!File.Exists(Path.Combine(_basePath, "songhist.db")))
+                SQLiteConnection.CreateFile(Path.Combine(_basePath, "songhist.db"));
+
+            _sqliteDb = new SQLiteConnection($"Data Source={Path.Combine(_basePath, "songhist.db")};Version=3;");
 
             if(!IsDatabaseUsable())
                 SetupDatabase();
@@ -171,6 +181,19 @@ namespace LunaticPlayer.Database
             _sqliteDb.Open();
             command.ExecuteNonQuery();
             _sqliteDb.Close();
+        }
+
+        public int GetSongCount()
+        {
+            var querySql = "SELECT COUNT(*) FROM SongHistory";
+            SQLiteCommand queryCommand = new SQLiteCommand(querySql, _sqliteDb);
+            _sqliteDb.Open();
+            object temp = queryCommand.ExecuteScalar();
+
+            int count = Convert.ToInt32(temp);
+            _sqliteDb.Close();
+
+            return count;
         }
     }
 }

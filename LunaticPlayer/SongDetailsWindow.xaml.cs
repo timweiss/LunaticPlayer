@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.Classes;
+using LunaticPlayer.Client;
 using LunaticPlayer.Helpers;
 using LunaticPlayer.Player;
 
@@ -16,6 +17,8 @@ namespace LunaticPlayer
     public partial class SongDetailsWindow : Window
     {
         private readonly Song _displayedSong;
+
+        private string _basePath = Configuration.GetInstance().Data.DataPath;
 
         public SongDetailsWindow(Song song)
         {
@@ -32,11 +35,11 @@ namespace LunaticPlayer
             if (_displayedSong.AlbumArtFilename != "")
             {
                 // we should have downloaded the cover image
-                if (File.Exists(Path.Combine(SongManager.ImageLocation, _displayedSong.AlbumArtFilename)))
+                if (File.Exists(Path.Combine(System.IO.Path.Combine(_basePath, SongManager.ImageFolder), _displayedSong.AlbumArtFilename)))
                 {
                     var bmi = new BitmapImage();
                     bmi.BeginInit();
-                    bmi.UriSource = new Uri(Path.Combine(SongManager.ImageLocation, _displayedSong.AlbumArtFilename),
+                    bmi.UriSource = new Uri(Path.Combine(System.IO.Path.Combine(_basePath, SongManager.ImageFolder), _displayedSong.AlbumArtFilename),
                         UriKind.Relative);
                     bmi.CacheOption = BitmapCacheOption.OnLoad;
                     bmi.EndInit();

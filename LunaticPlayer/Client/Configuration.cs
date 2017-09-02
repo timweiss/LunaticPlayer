@@ -11,6 +11,7 @@ namespace LunaticPlayer.Client
     class ConfigurationData
     {
         public double Volume { get; set; }
+        public string DataPath { get; set; }
     }
 
     class Configuration
@@ -66,7 +67,8 @@ namespace LunaticPlayer.Client
         {
             var data = new ConfigurationData()
             {
-                Volume = 0.4
+                Volume = 0.4,
+                DataPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LunaticPlayer")
             };
 
             Data = data;

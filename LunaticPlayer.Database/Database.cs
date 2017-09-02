@@ -18,6 +18,20 @@ namespace LunaticPlayer.Database
             _dbAccess.Initialize();
         }
 
+        public Database(string databasePath)
+        {
+            _dbAccess = new SQLiteInterop();
+
+            _dbAccess.SetBasePath(databasePath);
+
+            _dbAccess.Initialize();
+        }
+
+        public void SetBasePath(string path)
+        {
+            _dbAccess.SetBasePath(path);
+        }
+
         /// <summary>
         /// Gets all played songs from the database.
         /// </summary>
@@ -44,6 +58,11 @@ namespace LunaticPlayer.Database
         public void RemoveSongsOfToday()
         {
             _dbAccess.ClearSongsOfToday();
+        }
+
+        public int GetSongCount()
+        {
+            return _dbAccess.GetSongCount();
         }
     }
 }

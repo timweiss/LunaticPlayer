@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Net;
 using System.Threading;
+using LunaticPlayer.Client;
 
 namespace LunaticPlayer.Player
 {
@@ -16,7 +17,8 @@ namespace LunaticPlayer.Player
         public readonly SongHistoryManager SongHistory;
 
         private const int UpdateTolerance = 2;
-        public const string ImageLocation = "images";
+        public const string ImageFolder = "images";
+        public string ImageLocation = Path.Combine(Configuration.GetInstance().Data.DataPath, ImageFolder);
         private const string GrImageHost = "https://gensokyoradio.net/images/albums/200/";
 
         /// <summary>
@@ -85,6 +87,7 @@ namespace LunaticPlayer.Player
         {
             _api = client;
             SongHistory = new SongHistoryManager();
+            
         }
     }
 }

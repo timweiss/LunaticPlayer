@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LunaticPlayer.Classes;
+using LunaticPlayer.Client;
 using LunaticPlayer.Database;
 using Newtonsoft.Json;
 
@@ -44,7 +45,7 @@ namespace LunaticPlayer.Player
         /// </summary>
         private void InitializeHistory()
         {
-            Database = new Database.Database();
+            Database = new Database.Database(Configuration.GetInstance().Data.DataPath);
 
             SongHistory = Database.GetAllSongs();
         }
