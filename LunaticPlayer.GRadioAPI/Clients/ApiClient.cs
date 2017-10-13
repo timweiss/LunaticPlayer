@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using LunaticPlayer.Classes;
 
-namespace LunaticPlayer.GRadioAPI
+namespace LunaticPlayer.GRadioAPI.Clients
 {
-    public class ApiClient
+    [Obsolete]
+    public class ApiClient : IApiClient
     {
         public static string StreamUrl = "http://stream.gensokyoradio.net:8000/stream/1/";
         public const string ApiUrl = "https://gensokyoradio.net/xml/";

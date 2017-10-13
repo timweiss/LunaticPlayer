@@ -11,7 +11,7 @@ namespace LunaticPlayer.Player
 {
     public class SongManager
     {
-        private readonly GRadioAPI.ApiClient _api;
+        private readonly GRadioAPI.IApiClient _api;
         private Song _currentSong;
 
         public readonly SongHistoryManager SongHistory;
@@ -83,7 +83,7 @@ namespace LunaticPlayer.Player
             return null;
         }
 
-        public SongManager(GRadioAPI.ApiClient client)
+        public SongManager(GRadioAPI.IApiClient client)
         {
             _api = client;
             SongHistory = new SongHistoryManager();
