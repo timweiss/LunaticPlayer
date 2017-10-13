@@ -12,6 +12,7 @@ using System.Windows.Media.Effects;
 using LunaticPlayer.Classes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Controls;
+using LunaticPlayer.GRadioAPI.Clients;
 
 namespace LunaticPlayer
 {
@@ -21,7 +22,7 @@ namespace LunaticPlayer
     public partial class MainWindow : Window
     {
         private readonly Player.RadioPlayer _radioPlayer;
-        private readonly ApiClient _apiClient;
+        private readonly IApiClient _apiClient;
         private readonly Player.SongManager _songManager;
 
         private bool _isPlaying;
@@ -35,7 +36,7 @@ namespace LunaticPlayer
             InitializeComponent();
 
             _radioPlayer = new Player.RadioPlayer();
-            _apiClient = new ApiClient();
+            _apiClient = new JsonApiClient();
             _songManager = new Player.SongManager(_apiClient);
 
             _interfaceTimer = new Timer();

@@ -53,9 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiClient.cs" />
+    <Compile Include="Classes\ApiSong.cs" />
+    <Compile Include="IApiClient.cs" />
+    <Compile Include="Clients\JsonApiClient.cs" />
+    <Compile Include="Clients\ApiClient.cs" />
     <Compile Include="Classes\Song.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\UnixDateTimeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
