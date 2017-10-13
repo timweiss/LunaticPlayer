@@ -29,7 +29,7 @@
                             </Image.Effect>
                         </Image>
                     </Border>
-                    <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24">Lunatic Player</TextBlock>
+                    <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="24"><Hyperlink NavigateUri="https://lunaticplayer.weiss.moe" RequestNavigate="Hyperlink_RequestNavigate" Foreground="White" TextDecorations="{x:Null}" >Lunatic Player</Hyperlink></TextBlock>
                     <TextBlock Foreground="#FFCBCBCB" HorizontalAlignment="Center" Text="{Binding AppVersion, StringFormat='Version {0}'}"></TextBlock>
                 </StackPanel>
             </Border>

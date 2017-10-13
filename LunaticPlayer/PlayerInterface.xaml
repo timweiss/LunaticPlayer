@@ -197,7 +197,7 @@
                         </Button.OpacityMask>
                     </Button>
                 </Border>
-                <Border ToolTip="Show History" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
+                <Border ToolTip="Song History" Padding="5" Height="45" Width="45" HorizontalAlignment="Left">
                     <Button Style="{DynamicResource BorderlessImageButton}" Name="SongListButton" Click="SongListButton_OnClick" Background="{DynamicResource GR-Gradient-New}" >
                         <Button.Effect>
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>

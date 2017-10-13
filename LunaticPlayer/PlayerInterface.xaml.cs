@@ -64,7 +64,7 @@ namespace LunaticPlayer
         private Song previousSong;
 
         /// <summary>
-        /// Updates any song information and UI stuff.
+        /// Updates song information and UI stuff.
         /// </summary>
         private async void UpdateSong()
         {

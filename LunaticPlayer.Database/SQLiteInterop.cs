@@ -78,29 +78,6 @@ namespace LunaticPlayer.Database
         }
 
         /// <summary>
-        /// Adds a test entry into the SongHistory table.
-        /// </summary>
-        public void WriteTestData()
-        {
-            var testSong = new Song()
-            {
-                Title = "IT JUST WERKS",
-                Year = 1337,
-                ArtistName = "Oracle Team",
-                CircleName = "New Delhi Choir",
-                AlbumName = "Our Dreams",
-                StartTime = DateTime.Now,
-                Duration = TimeSpan.FromSeconds(240),
-                ApiSongId = 1337,
-                ApiAlbumId = 1337,
-                AlbumArtFilename = "nah.jpg",
-                CirleArtFilename = "boobs.jpg"
-            };
-
-            AddSong(testSong);
-        }
-
-        /// <summary>
         /// Adds the song into the SongHistory table.
         /// </summary>
         /// <param name="song">The song</param>
