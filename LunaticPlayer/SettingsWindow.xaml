@@ -51,7 +51,7 @@
                     </StackPanel>
                     <StackPanel Name="LegalPanel" Margin="0,10,0,0">
                         <TextBlock Foreground="#FFEAEAEA" FontSize="18">Legal + Attributions</TextBlock>
-                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">Content provided by <Hyperlink NavigateUri="https://gensokyoradio.net" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#FFB8B8B8" >GensokyoRadio</Hyperlink></TextBlock>
+                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">Content provided by <Hyperlink NavigateUri="https://gensokyoradio.net" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#FFB8B8B8" >Gensokyo Radio</Hyperlink></TextBlock>
                         <TextBlock Foreground="#FFB8B8B8" FontSize="11">Lunatic Player created by Tim Weiß</TextBlock>
                         <TextBlock Foreground="#FFB8B8B8" FontSize="11">The GR logo is a trademark of Gensokyo Radio</TextBlock>
                         <TextBlock Foreground="#FFB8B8B8" FontSize="11">Gensokyo Radio is © LunarSpotlight</TextBlock>
