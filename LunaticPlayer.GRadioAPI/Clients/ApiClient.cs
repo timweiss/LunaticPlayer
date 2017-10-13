@@ -7,6 +7,7 @@ using LunaticPlayer.Classes;
 
 namespace LunaticPlayer.GRadioAPI.Clients
 {
+    [Obsolete]
     public class ApiClient : IApiClient
     {
         public static string StreamUrl = "http://stream.gensokyoradio.net:8000/stream/1/";

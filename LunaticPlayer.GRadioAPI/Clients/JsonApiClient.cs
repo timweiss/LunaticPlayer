@@ -16,7 +16,7 @@ namespace LunaticPlayer.GRadioAPI.Clients
         public ApiSong CurrentApiSong { get; private set; }
 
         /// <summary>
-        /// Converts the raw API data into the <seealso cref="Song" /> class.
+        /// Converts the API data class into the <seealso cref="Song" /> class.
         /// </summary>
         /// <returns>The song fetched from the API.</returns>
         public Song PlayingSong()
@@ -43,7 +43,7 @@ namespace LunaticPlayer.GRadioAPI.Clients
         }
 
         /// <summary>
-        /// Downloads any data from the GensokyoRadio XML API and stores it in the class.
+        /// Downloads any data from the GensokyoRadio JSON API and stores it in the class.
         /// </summary>
         /// <returns></returns>
         public async Task FetchRawApiData()
