@@ -30,6 +30,11 @@ namespace LunaticPlayer
         private Timer _interfaceTimer;
 
         private Song _currentSong;
+        
+        /* Secondary windows */
+        private SongDetailsWindow _detailsWindow;
+        private SettingsWindow _settingsWindow;
+        private SongHistoryWindow _historyWindow;
 
         public MainWindow()
         {
@@ -208,20 +213,30 @@ namespace LunaticPlayer
 
         private void SongInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            SongDetailsWindow sdWindow = new SongDetailsWindow(_currentSong);
-            sdWindow.Show();
+            if (_detailsWindow != null && _detailsWindow.IsVisible)
+                return;
+
+            _detailsWindow = new SongDetailsWindow(_currentSong);
+            _detailsWindow.Show();
         }
 
         private void OptionsButton_OnClick(object sender, RoutedEventArgs e)
         {
-            SettingsWindow sWindow = new SettingsWindow(_songManager.SongHistory.Database);
-            sWindow.Show();
+            if (_settingsWindow != null && _settingsWindow.IsVisible)
+                return;
+
+            _settingsWindow = new SettingsWindow(_songManager.SongHistory.Database);
+            _settingsWindow.Show();
         }
 
         private void SongListButton_OnClick(object sender, RoutedEventArgs e)
         {
-            SongHistoryWindow sWindow = new SongHistoryWindow(_songManager.SongHistory);
-            sWindow.Show();
+            if (_historyWindow != null && _historyWindow.IsVisible)
+                return;
+            
+            
+            _historyWindow = new SongHistoryWindow(_songManager.SongHistory);
+            _historyWindow.Show();
         }
 
         private void VolumeButton_OnClick(object sender, RoutedEventArgs e)
