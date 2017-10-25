@@ -17,14 +17,24 @@ namespace LunaticPlayer.Controls
         {
             _mainWindow = mainWindow;
             _hotKeyManager = new HotKeyManager();
-            var hotKey = _hotKeyManager.Register(Key.MediaPlayPause, ModifierKeys.None);
+            _hotKeyManager.Register(Key.MediaPlayPause, ModifierKeys.None);
+            _hotKeyManager.Register(Key.Pause, ModifierKeys.None);
+            _hotKeyManager.Register(Key.Play, ModifierKeys.None);
             
             _hotKeyManager.KeyPressed += HotKeyManagerPressed;
         }
         
         private void HotKeyManagerPressed(object sender, KeyPressedEventArgs e)
         {
-            _mainWindow.PlayButtonClicked();
+            switch (e.HotKey.Key)
+            {
+                case Key.MediaStop when _mainWindow.IsPlaying:
+                    _mainWindow.PlayButtonClicked();
+                    break;
+                case Key.MediaPlayPause:
+                    _mainWindow.PlayButtonClicked();
+                    break;
+            }
         }
     }
 

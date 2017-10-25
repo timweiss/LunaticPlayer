@@ -350,5 +350,7 @@ namespace LunaticPlayer
             _radioPlayer.SetVolume(volumeBar.Data.Volume);
             Configuration.GetInstance().Data.Volume = Math.Round(volumeBar.Data.Volume, 2);
         }
+
+        public bool IsPlaying => _isPlaying;
     }
 }
