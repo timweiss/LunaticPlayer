@@ -31,6 +31,8 @@ namespace LunaticPlayer
 
         private Song _currentSong;
 
+        private MediaKeyHook _mediaKeyHook;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +49,9 @@ namespace LunaticPlayer
 
             LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            
+            _mediaKeyHook = new MediaKeyHook();
+            _mediaKeyHook.Subscribe(this);
         }
 
         /// <summary>
@@ -122,8 +127,10 @@ namespace LunaticPlayer
 
         /// <summary>
         /// Starts/stops the audio stream and updates any UI stuff like buttons.
+        /// 
+        /// Also invoked when pressing the play/pause media button.
         /// </summary>
-        private void PlayButtonClicked()
+        public void PlayButtonClicked()
         {
             if (_isPlaying)
             {
