@@ -13,6 +13,7 @@ using LunaticPlayer.Classes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Controls;
 using LunaticPlayer.GRadioAPI.Clients;
+using LunaticPlayer.Windows;
 
 namespace LunaticPlayer
 {
@@ -54,9 +55,6 @@ namespace LunaticPlayer
 
             LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-            
-            _mediaKeyHook = new MediaKeyHook();
-            _mediaKeyHook.Subscribe(this);
         }
 
         /// <summary>
@@ -232,7 +230,7 @@ namespace LunaticPlayer
             if (_settingsWindow != null && _settingsWindow.IsVisible)
                 return;
 
-            _settingsWindow = new SettingsWindow(_songManager.SongHistory.Database);
+            _settingsWindow = new SettingsWindow(_songManager.SongHistory.Database, _mediaKeyHook);
             _settingsWindow.Show();
         }
 
@@ -334,6 +332,10 @@ namespace LunaticPlayer
             {
                 UpdateSong();
             }
+
+
+            _mediaKeyHook = new MediaKeyHook();
+            _mediaKeyHook.Subscribe(this);
         }
 
         private void HideSongInfo()

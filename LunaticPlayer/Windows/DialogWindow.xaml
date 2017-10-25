@@ -25,7 +25,12 @@
                 </Grid>
                 <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto">
                     <Border Padding="10,10,10,0">
-                        <TextBlock Name="ContentText" Foreground="#FFE6E6E6" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                        <TextBox Name="ContentText" Foreground="#FFE6E6E6" FontSize="16" 
+                                   Background="Transparent"
+                                   BorderThickness="0"
+                                   Text="{Binding Text, Mode=OneWay}"
+                                   IsReadOnly="True"
+                                   TextWrapping="Wrap"></TextBox>
                     </Border>
                 </ScrollViewer>
             </DockPanel>

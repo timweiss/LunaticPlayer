@@ -34,30 +34,40 @@
                 </StackPanel>
             </Border>
             <Border Padding="10">
-                <StackPanel>
-                    <StackPanel Name="CoverImagesPanel">
-                        <TextBlock Foreground="#FFEAEAEA" FontSize="18">Cover Images</TextBlock>
+                <ScrollViewer>
+                    <Border Padding="0,0,10,0">
+                        <StackPanel>
+                            <StackPanel Name="CoverImagesPanel">
+                                <TextBlock Foreground="#FFEAEAEA" FontSize="18">Cover Images</TextBlock>
 
-                        <TextBlock Foreground="#FFB8B8B8" Text="{Binding ImageCount, StringFormat='Delete cover images from cache ({0} items)'}" />
-                        <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteAllCoverImagesButton_Click">Delete all images</Button>
-                        <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteCoverImagesOfLast30Days_Click">Delete images older > 30 days</Button>
-                    </StackPanel>
-                    <StackPanel Name="DatabasePanel" Margin="0,10,0,0">
-                        <TextBlock Foreground="#FFEAEAEA" FontSize="18">Song Database</TextBlock>
+                                <TextBlock Foreground="#FFB8B8B8" Text="{Binding ImageCount, StringFormat='Delete cover images from cache ({0} items)'}" />
+                                <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteAllCoverImagesButton_Click">Delete all images</Button>
+                                <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteCoverImagesOfLast30Days_Click">Delete images older > 30 days</Button>
+                            </StackPanel>
+                            <StackPanel Name="DatabasePanel" Margin="0,10,0,0">
+                                <TextBlock Foreground="#FFEAEAEA" FontSize="18">Song Database</TextBlock>
 
-                        <TextBlock Foreground="#FFB8B8B8" Text="{Binding SongCount, StringFormat='Delete entries from database ({0} items)'}" />
-                        <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteDatabaseEntriesButton_Click">Delete all entries</Button>
-                        <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteDatabaseEntriesTodayButton_Click">Delete today's entries</Button>
-                    </StackPanel>
-                    <StackPanel Name="LegalPanel" Margin="0,10,0,0">
-                        <TextBlock Foreground="#FFEAEAEA" FontSize="18">Legal + Attributions</TextBlock>
-                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">Content provided by <Hyperlink NavigateUri="https://gensokyoradio.net" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#FFB8B8B8" >Gensokyo Radio</Hyperlink></TextBlock>
-                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">Lunatic Player created by Tim Weiß</TextBlock>
-                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">The GR logo is a trademark of Gensokyo Radio</TextBlock>
-                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">Gensokyo Radio is © LunarSpotlight</TextBlock>
-                        <TextBlock Foreground="#FFB8B8B8" FontSize="11">Touhou Project is © Team Shanghai Alice</TextBlock>
-                    </StackPanel>
-                </StackPanel>
+                                <TextBlock Foreground="#FFB8B8B8" Text="{Binding SongCount, StringFormat='Delete entries from database ({0} items)'}" />
+                                <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteDatabaseEntriesButton_Click">Delete all entries</Button>
+                                <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="DeleteDatabaseEntriesTodayButton_Click">Delete today's entries</Button>
+                            </StackPanel>
+                            <StackPanel Name="HotkeyPanel" Margin="0,10,0,0">
+                                <TextBlock Foreground="#FFEAEAEA" FontSize="18">Media Hotkeys</TextBlock>
+
+                                <TextBlock Foreground="#FFB8B8B8" Text="Couldn't register media hotkeys, click button to try again" />
+                                <Button Style="{DynamicResource WhiteButton}" Margin="0,5,0,0" Height="25" Click="RegisterMediaHotkeys">Register media hotkeys</Button>
+                            </StackPanel>
+                            <StackPanel Name="LegalPanel" Margin="0,10,0,0">
+                                <TextBlock Foreground="#FFEAEAEA" FontSize="18">Legal + Attributions</TextBlock>
+                                <TextBlock Foreground="#FFB8B8B8" FontSize="11">Content provided by <Hyperlink NavigateUri="https://gensokyoradio.net" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#FFB8B8B8" >Gensokyo Radio</Hyperlink></TextBlock>
+                                <TextBlock Foreground="#FFB8B8B8" FontSize="11">Lunatic Player created by Tim Weiß</TextBlock>
+                                <TextBlock Foreground="#FFB8B8B8" FontSize="11">The GR logo is a trademark of Gensokyo Radio</TextBlock>
+                                <TextBlock Foreground="#FFB8B8B8" FontSize="11">Gensokyo Radio is © LunarSpotlight</TextBlock>
+                                <TextBlock Foreground="#FFB8B8B8" FontSize="11">Touhou Project is © Team Shanghai Alice</TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
             </Border>
         </DockPanel>
     </Grid>

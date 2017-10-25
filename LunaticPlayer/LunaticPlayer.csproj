@@ -71,7 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Client\Configuration.cs" />
-    <Compile Include="Controls\MediaKeyHook.cs" />
+    <Compile Include="Client\MediaKeyHook.cs" />
     <Compile Include="Controls\VolumeBar.xaml.cs">
       <DependentUpon>VolumeBar.xaml</DependentUpon>
     </Compile>

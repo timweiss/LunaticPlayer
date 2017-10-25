@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Player;
+using LunaticPlayer.Windows;
 
 namespace LunaticPlayer
 {
@@ -65,14 +66,19 @@ namespace LunaticPlayer
         private Database.Database _database;
         private SettingsViewModel _viewModel;
 
+        private MediaKeyHook _mediaKeyHook;
+
         private string _basePath = Configuration.GetInstance().Data.DataPath;
 
-        public SettingsWindow(Database.Database database)
+        public SettingsWindow(Database.Database database, MediaKeyHook mediaKeyHook)
         {
             _database = database;
+            _mediaKeyHook = mediaKeyHook;
+
             _viewModel = new SettingsViewModel();
             _viewModel.AppVersion = Assembly.GetExecutingAssembly().GetName().Version;
             DataContext = _viewModel;
+
             InitializeComponent();
             this.Loaded += Window_Loaded;
         }
@@ -82,17 +88,17 @@ namespace LunaticPlayer
             //Storyboard sb = this.FindResource("FadeAppInfo") as Storyboard;
             //Storyboard.SetTarget(sb, this.AppInfo);
             //sb.Begin();
-            ReloadStats();
-            
+            ReloadData();
         }
 
-        private void ReloadStats()
+        private void ReloadData()
         {
             _viewModel.SongCount = _database.GetSongCount();
             _viewModel.ImageCount = Directory.GetFiles(System.IO.Path.Combine(_basePath, SongManager.ImageFolder), "*", SearchOption.TopDirectoryOnly)
                 .Length;
 
-            // DataContext = _viewModel;
+            if (_mediaKeyHook.KeysRegistered)
+                HotkeyPanel.Visibility = Visibility.Collapsed;
         }
 
         private void DeleteAllCoverImagesButton_Click(object sender, RoutedEventArgs e)
@@ -105,7 +111,7 @@ namespace LunaticPlayer
                     File.Delete(filename);
                 }
 
-                ReloadStats();
+                ReloadData();
             }
         }
 
@@ -122,7 +128,7 @@ namespace LunaticPlayer
                     }
                 }
 
-                ReloadStats();
+                ReloadData();
             }
         }
 
@@ -136,14 +142,48 @@ namespace LunaticPlayer
         {
             Console.WriteLine("Deleting all songs from SongHistory");
             _database.RemoveAllSongs();
-            ReloadStats();
+            ReloadData();
         }
 
         private void DeleteDatabaseEntriesTodayButton_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Deleting all songs of today from SongHistory");
             _database.RemoveSongsOfToday();
-            ReloadStats();
+            ReloadData();
+        }
+
+        /// <summary>
+        /// Try to register hotkeys. Show dialog if this still doesn't work.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RegisterMediaHotkeys(object sender, RoutedEventArgs e)
+        {
+            _mediaKeyHook.RegisterHotkeys();
+
+            ReloadData();
+
+            if(!_mediaKeyHook.KeysRegistered)
+                ShowDialogWindow("Error", "Could not register hotkeys. Make sure no other instance of LunaticPlayer is running.", true);
+        }
+
+        private void ShowDialogWindow(string title, string message, bool showAsDialog)
+        {
+            var window = new DialogWindow();
+            window.TitleText.Text = title;
+            window.ContentText.Text = message;
+            window.Title = title;
+            window.HeaderImage.Source = new BitmapImage(new Uri(@"/LunaticPlayer;component/Resources/help_white_92.png", UriKind.Relative));
+            window.Owner = this;
+
+            if (showAsDialog)
+            {
+                window.ShowDialog();
+            }
+            else
+            {
+                window.Show();
+            }
         }
     }
 }
