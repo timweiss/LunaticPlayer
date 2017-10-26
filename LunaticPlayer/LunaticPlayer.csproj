@@ -194,6 +194,9 @@
     <Resource Include="Resources\gr_icon_new.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\gr-album-fallback.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Resources\gr_icon_new.ico" />
   </ItemGroup>
   <ItemGroup>
