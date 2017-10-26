@@ -22,6 +22,7 @@ namespace LunaticPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string FallbackAlbumArt = "https://gensokyoradio.net/images/albums/c200/gr6_circular.png";
         private readonly Player.RadioPlayer _radioPlayer;
         private readonly IApiClient _apiClient;
         private readonly Player.SongManager _songManager;
@@ -110,19 +111,13 @@ namespace LunaticPlayer
                 RemainingTime.Text = "Press play to start";
                 SongTime.Text = "";
             }
-
-            if (_currentSong.AlbumArt != null)
-            {
-                AlbumArtContainer.Padding = new Thickness(10);
-                AlbumArt.Source = _currentSong.AlbumArt;
-                AlbumArt.Width = 125;
-                AlbumArt.Height = 125;
-            }
-            else
-            {
-                AlbumArtContainer.Padding = new Thickness(0);
-                AlbumArt.Width = 0;
-            }
+            
+            // If the image fails to load we will show the fallback image.
+            // If the fallback image fails to download nothing will be shown
+            AlbumArtContainer.Padding = new Thickness(10);
+            AlbumArt.Source = _currentSong.AlbumArt ?? new BitmapImage(new Uri(FallbackAlbumArt));
+            AlbumArt.Width = 125;
+            AlbumArt.Height = 125;
             this.Title = $"LP: {_currentSong.Title} - {_currentSong.ArtistName}";
 
             previousSong = _currentSong;
