@@ -115,8 +115,6 @@ namespace LunaticPlayer
                 RemainingTime.Text = "Press play to start";
                 SongTime.Text = "";
             }
-
-            _currentSong.AlbumArt = null;
             
             // If the image fails to load we will show the fallback image.
             AlbumArtContainer.Padding = new Thickness(10);
