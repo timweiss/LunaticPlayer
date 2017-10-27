@@ -22,6 +22,7 @@ namespace LunaticPlayer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ImageSource _fallbackAlbumIcon;
         private readonly Player.RadioPlayer _radioPlayer;
         private readonly IApiClient _apiClient;
         private readonly Player.SongManager _songManager;
@@ -46,7 +47,7 @@ namespace LunaticPlayer
             _radioPlayer = new Player.RadioPlayer();
             _apiClient = new JsonApiClient();
             _songManager = new Player.SongManager(_apiClient);
-
+            
             _interfaceTimer = new Timer();
             _interfaceTimer.Interval = 1000;
             _interfaceTimer.Elapsed += ReloadInterface;
@@ -55,6 +56,10 @@ namespace LunaticPlayer
 
             LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+            
+            _fallbackAlbumIcon = new ImageSourceConverter()
+                    .ConvertFromString("pack://application:,,,/LunaticPlayer;component/Resources/gr-album-fallback.png")
+                as ImageSource;
         }
 
         /// <summary>
@@ -110,19 +115,12 @@ namespace LunaticPlayer
                 RemainingTime.Text = "Press play to start";
                 SongTime.Text = "";
             }
-
-            if (_currentSong.AlbumArt != null)
-            {
-                AlbumArtContainer.Padding = new Thickness(10);
-                AlbumArt.Source = _currentSong.AlbumArt;
-                AlbumArt.Width = 125;
-                AlbumArt.Height = 125;
-            }
-            else
-            {
-                AlbumArtContainer.Padding = new Thickness(0);
-                AlbumArt.Width = 0;
-            }
+            
+            // If the image fails to load we will show the fallback image.
+            AlbumArtContainer.Padding = new Thickness(10);
+            AlbumArt.Source = _currentSong.AlbumArt ?? _fallbackAlbumIcon;
+            AlbumArt.Width = 125;
+            AlbumArt.Height = 125;
             this.Title = $"LP: {_currentSong.Title} - {_currentSong.ArtistName}";
 
             previousSong = _currentSong;
