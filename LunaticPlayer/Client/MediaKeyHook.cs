@@ -9,7 +9,7 @@ namespace LunaticPlayer.Client
         private HotKeyManager _hotKeyManager;
         private MainWindow _mainWindow;
 
-        public bool KeysRegistered { get; set; }
+        public bool KeysRegistered { get; private set; }
 
         /// <summary>
         /// Subscribes to play/pause button for controlling the play button.

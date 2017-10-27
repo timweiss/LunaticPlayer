@@ -7,7 +7,6 @@ using LunaticPlayer.Classes;
 
 namespace LunaticPlayer.GRadioAPI.Clients
 {
-    [Obsolete]
     public class ApiClient : IApiClient
     {
         public static string StreamUrl = "http://stream.gensokyoradio.net:8000/stream/1/";
@@ -152,7 +151,7 @@ namespace LunaticPlayer.GRadioAPI.Clients
                 using (HttpResponseMessage response = await client.GetAsync(ApiUrl))
                 {
                     if (response.IsSuccessStatusCode)
-                        return true;
+                        return await DataUsable(response);
 
                     return false;
                 }
@@ -161,6 +160,32 @@ namespace LunaticPlayer.GRadioAPI.Clients
             {
                 Console.WriteLine(e);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Try to parse API data and return false if any error occurs.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        private async Task<bool> DataUsable(HttpResponseMessage response)
+        {
+            using (HttpContent content = response.Content)
+            {
+                var rawXmlResult = await content.ReadAsStringAsync();
+
+                var xmlResult = new XmlDocument();
+
+                try
+                {
+                    xmlResult.LoadXml(rawXmlResult);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
             }
         }
     }

@@ -5,7 +5,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.GRadioAPI;
 using System.Timers;
-using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
@@ -13,22 +12,22 @@ using LunaticPlayer.Classes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Controls;
 using LunaticPlayer.GRadioAPI.Clients;
-using LunaticPlayer.Windows;
 
 namespace LunaticPlayer
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Main player window displaying current song and providing access to player controls.
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ImageSource _fallbackAlbumIcon;
         private readonly Player.RadioPlayer _radioPlayer;
-        private readonly IApiClient _apiClient;
         private readonly Player.SongManager _songManager;
+
+        private IApiClient _apiClient;
 
         private bool _isPlaying;
 
+        private readonly ImageSource _fallbackAlbumIcon;
         private Timer _interfaceTimer;
 
         private Song _currentSong;
@@ -63,7 +62,7 @@ namespace LunaticPlayer
         }
 
         /// <summary>
-        /// Reloads the interface as the UI thread.
+        /// Reloads interface as UI thread.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -72,7 +71,6 @@ namespace LunaticPlayer
             Dispatcher.Invoke(UpdateSong);
         }
 
-        private bool firstRun = true;
         private bool animationRun = false;
 
         private Song previousSong;
@@ -89,7 +87,6 @@ namespace LunaticPlayer
             }
 
             DataContext = _currentSong = await _songManager.CurrentSong();
-            firstRun = false;
 
             if (_currentSong != previousSong)
             {
@@ -297,34 +294,46 @@ namespace LunaticPlayer
         /// TODO: add ability to refresh player after connection failiure
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // check if API is usable 
             var apiAccess = await _apiClient.CheckApiAccess();
 
             if (!apiAccess)
             {
-                var bannerData = new PopupBannerData()
-                {
-                    Closable = false,
-                    Level = PopupLevel.Error,
-                    CloseAction = ClosePopupBanner
-                };
+                // if not, try fallback API (XML)
+                var fallback = new ApiClient();
+                var fallbackAccess = await _apiClient.CheckApiAccess();
 
-                if (!apiAccess)
+                // if this fails, display an error message (banner)
+                if (!fallbackAccess)
+                {
+                    var bannerData = new PopupBannerData()
+                    {
+                        Closable = false,
+                        Level = PopupLevel.Error,
+                        CloseAction = ClosePopupBanner
+                    };
+
                     bannerData.Message = "Could not connect to the API";
 
-                _messageBanner = new PopupBanner(bannerData);
+                    _messageBanner = new PopupBanner(bannerData);
 
-                _messageBanner.Height = 40;
-                _messageBanner.VerticalAlignment = VerticalAlignment.Top;
-                _messageBanner.Effect = new DropShadowEffect() {BlurRadius = 20, Direction = -180};
-                _messageBanner.Name = "MessageBanner";
-                _messageBanner.Opacity = 0.0;
+                    _messageBanner.Height = 40;
+                    _messageBanner.VerticalAlignment = VerticalAlignment.Top;
+                    _messageBanner.Effect = new DropShadowEffect() {BlurRadius = 20, Direction = -180};
+                    _messageBanner.Name = "MessageBanner";
+                    _messageBanner.Opacity = 0.0;
 
-                this.MainContent.Children.Add(_messageBanner);
+                    this.MainContent.Children.Add(_messageBanner);
 
-                Storyboard sb = this.FindResource("FadeInMessageBanner") as Storyboard;
-                Storyboard.SetTarget(sb, _messageBanner);
-                sb.Begin();
-                HideSongInfo();
+                    Storyboard sb = this.FindResource("FadeInMessageBanner") as Storyboard;
+                    Storyboard.SetTarget(sb, _messageBanner);
+                    sb.Begin();
+                    HideSongInfo();
+                }
+                else
+                {
+                    _apiClient = fallback;
+                }
             }
             else
             {

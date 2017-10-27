@@ -72,7 +72,7 @@ namespace LunaticPlayer.GRadioAPI.Clients
                 using (HttpResponseMessage response = await client.GetAsync(ApiUrl))
                 {
                     if (response.IsSuccessStatusCode)
-                        return true;
+                        return await DataUsable(response);
 
                     return false;
                 }
@@ -81,6 +81,30 @@ namespace LunaticPlayer.GRadioAPI.Clients
             {
                 Console.WriteLine(e);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Try to parse API data and return false if any error occurs.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        private async Task<bool> DataUsable(HttpResponseMessage response)
+        {
+            using (HttpContent content = response.Content)
+            {
+                var rawJsonResult = await content.ReadAsStringAsync();
+
+                try
+                {
+                    var jsonContent = JsonConvert.DeserializeObject<ApiSong>(rawJsonResult, new UnixDateTimeConverter());
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
             }
         }
     }
