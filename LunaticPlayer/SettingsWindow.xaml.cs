@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Player;
 using LunaticPlayer.Windows;
+using Path = System.IO.Path;
 
 namespace LunaticPlayer
 {
@@ -99,6 +100,9 @@ namespace LunaticPlayer
 
             if (_mediaKeyHook.KeysRegistered)
                 HotkeyPanel.Visibility = Visibility.Collapsed;
+
+            if (AppPathEqualsDataPath())
+                AppFolderButton.Visibility = Visibility.Collapsed;
         }
 
         private void DeleteAllCoverImagesButton_Click(object sender, RoutedEventArgs e)
@@ -140,14 +144,12 @@ namespace LunaticPlayer
 
         private void DeleteDatabaseEntriesButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Deleting all songs from SongHistory");
             _database.RemoveAllSongs();
             ReloadData();
         }
 
         private void DeleteDatabaseEntriesTodayButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Deleting all songs of today from SongHistory");
             _database.RemoveSongsOfToday();
             ReloadData();
         }
@@ -164,7 +166,7 @@ namespace LunaticPlayer
             ReloadData();
 
             if(!_mediaKeyHook.KeysRegistered)
-                ShowDialogWindow("Error", "Could not register hotkeys. Make sure no other instance of LunaticPlayer is running.", true);
+                ShowDialogWindow("Error", "Could not register hotkeys. Make sure no other instance of Lunatic Player is running.", true);
         }
 
         private void ShowDialogWindow(string title, string message, bool showAsDialog)
@@ -184,6 +186,24 @@ namespace LunaticPlayer
             {
                 window.Show();
             }
+        }
+
+        private void OpenAppFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(System.IO.Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName);
+        }
+
+        private bool AppPathEqualsDataPath()
+        {
+            var appPath = new Uri(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName.TrimEnd('/', '\\'));
+            var dataPath = new Uri(Path.GetFullPath(_basePath).TrimEnd('/', '\\'));
+
+            return appPath == dataPath;
+        }
+
+        private void OpenDataFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(_basePath);
         }
     }
 }

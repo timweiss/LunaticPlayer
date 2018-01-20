@@ -26,7 +26,7 @@ namespace LunaticPlayer.Classes
         public string AlbumArtFilename { get; set; }
         public string CirleArtFilename { get; set; }
 
-        public string CircleArtist => $"{ArtistName} ({CircleName})";
+        public string CircleArtist => ArtistName == CircleName ? ArtistName : $"{ArtistName} ({CircleName})";
 
         [JsonIgnore]
         public BitmapImage AlbumArt { get; set; }
