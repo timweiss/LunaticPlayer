@@ -140,14 +140,12 @@ namespace LunaticPlayer
 
         private void DeleteDatabaseEntriesButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Deleting all songs from SongHistory");
             _database.RemoveAllSongs();
             ReloadData();
         }
 
         private void DeleteDatabaseEntriesTodayButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Deleting all songs of today from SongHistory");
             _database.RemoveSongsOfToday();
             ReloadData();
         }
@@ -164,7 +162,7 @@ namespace LunaticPlayer
             ReloadData();
 
             if(!_mediaKeyHook.KeysRegistered)
-                ShowDialogWindow("Error", "Could not register hotkeys. Make sure no other instance of LunaticPlayer is running.", true);
+                ShowDialogWindow("Error", "Could not register hotkeys. Make sure no other instance of Lunatic Player is running.", true);
         }
 
         private void ShowDialogWindow(string title, string message, bool showAsDialog)
@@ -184,6 +182,11 @@ namespace LunaticPlayer
             {
                 window.Show();
             }
+        }
+
+        private void OpenAppFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(_basePath);
         }
     }
 }

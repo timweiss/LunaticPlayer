@@ -214,7 +214,10 @@ namespace LunaticPlayer
         private void SongInfoButton_Click(object sender, RoutedEventArgs e)
         {
             if (_detailsWindow != null && _detailsWindow.IsVisible)
+            {
+                _detailsWindow.Focus();
                 return;
+            }
 
             _detailsWindow = new SongDetailsWindow(_currentSong);
             _detailsWindow.Show();
@@ -223,7 +226,10 @@ namespace LunaticPlayer
         private void OptionsButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (_settingsWindow != null && _settingsWindow.IsVisible)
+            {
+                _settingsWindow.Focus();
                 return;
+            }
 
             _settingsWindow = new SettingsWindow(_songManager.SongHistory.Database, _mediaKeyHook);
             _settingsWindow.Show();
@@ -232,8 +238,10 @@ namespace LunaticPlayer
         private void SongListButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (_historyWindow != null && _historyWindow.IsVisible)
+            {
+                _historyWindow.Focus();
                 return;
-            
+            }
             
             _historyWindow = new SongHistoryWindow(_songManager.SongHistory);
             _historyWindow.Show();
