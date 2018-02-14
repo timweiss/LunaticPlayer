@@ -80,7 +80,7 @@ namespace LunaticPlayer
         /// </summary>
         private async void UpdateSong()
         {
-            if (_currentSong != null && !animationRun && _currentSong.EndDuration.TotalSeconds <= 3)
+            if (_currentSong != null && !animationRun && _currentSong.EndDuration.TotalSeconds <= 1)
             {
                 animationRun = true;
                 RunFadeOutAnimation();

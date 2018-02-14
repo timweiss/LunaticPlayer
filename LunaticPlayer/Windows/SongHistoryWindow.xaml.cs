@@ -9,12 +9,11 @@ using LunaticPlayer.Classes;
 using LunaticPlayer.Helpers;
 using LunaticPlayer.Player;
 using LunaticPlayer.Windows;
-using Newtonsoft.Json;
 
 namespace LunaticPlayer
 {
     /// <summary>
-    /// Interaktionslogik für SongHistoryWindow.xaml
+    /// Displays a list of songs stored inside <see cref="SongHistoryManager"/>
     /// </summary>
     public partial class SongHistoryWindow : Window
     {

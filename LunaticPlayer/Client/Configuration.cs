@@ -25,7 +25,7 @@ namespace LunaticPlayer.Client
         /// <summary>
         /// The source of configuration data (Filesystem, Default Object, ...).
         /// </summary>
-        public string Source { get; set; }
+        public string Source { get; private set; }
 
         public static Configuration GetInstance()
         {
@@ -55,7 +55,6 @@ namespace LunaticPlayer.Client
 
                 SetupData();
 
-                // Erstellt eine Konfigurationsdatei für das nächste Mal.
                 Save();
             }
         }

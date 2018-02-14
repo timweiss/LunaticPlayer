@@ -16,7 +16,7 @@ namespace LunaticPlayer.Player
 
         public readonly SongHistoryManager SongHistory;
 
-        private const int UpdateTolerance = 2;
+        private const int UpdateTolerance = 1;
         public const string ImageFolder = "images";
         public string ImageLocation = Path.Combine(Configuration.GetInstance().Data.DataPath, ImageFolder);
         private const string GrImageHost = "https://gensokyoradio.net/images/albums/200/";
@@ -38,7 +38,7 @@ namespace LunaticPlayer.Player
         }
 
         /// <summary>
-        /// This function loads the current song of the API into the SongManager.
+        /// Loads song provided by the API and replaces the current song.
         /// </summary>
         /// <returns></returns>
         private async Task LoadSong()

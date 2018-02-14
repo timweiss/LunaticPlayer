@@ -3,6 +3,9 @@ using System.Windows.Media;
 
 namespace LunaticPlayer.Player
 {
+    /// <summary>
+    /// Simple wrapper around the WPF MediaPlayer.
+    /// </summary>
     class RadioPlayer
     {
         private readonly MediaPlayer _player;
@@ -29,7 +32,6 @@ namespace LunaticPlayer.Player
             _player.Close();
         }
 
-        //TODO: Lautstärke richtig einstellen
         public void SetVolume(double volume)
         {
             _player.Volume = volume;

@@ -76,16 +76,16 @@
       <DependentUpon>VolumeBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SongActions.cs" />
-    <Compile Include="PopupBanner.xaml.cs">
+    <Compile Include="Controls\PopupBanner.xaml.cs">
       <DependentUpon>PopupBanner.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SongDetailsWindow.xaml.cs">
+    <Compile Include="Windows\SongDetailsWindow.xaml.cs">
       <DependentUpon>SongDetailsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SongHistoryWindow.xaml.cs">
+    <Compile Include="Windows\SongHistoryWindow.xaml.cs">
       <DependentUpon>SongHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DialogWindow.xaml.cs">
@@ -95,7 +95,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PlayerInterface.xaml">
+    <Page Include="Windows\PlayerInterface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -103,23 +103,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PlayerInterface.xaml.cs">
+    <Compile Include="Windows\PlayerInterface.xaml.cs">
       <DependentUpon>PlayerInterface.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PopupBanner.xaml">
+    <Page Include="Controls\PopupBanner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="Windows\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SongDetailsWindow.xaml">
+    <Page Include="Windows\SongDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SongHistoryWindow.xaml">
+    <Page Include="Windows\SongHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

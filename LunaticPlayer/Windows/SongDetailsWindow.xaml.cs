@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using LunaticPlayer.Classes;
 using LunaticPlayer.Client;
@@ -12,7 +10,7 @@ using LunaticPlayer.Player;
 namespace LunaticPlayer
 {
     /// <summary>
-    /// Interaktionslogik für SongDetailsWindow.xaml
+    /// Displays information for supplied <see cref="Song"/>
     /// </summary>
     public partial class SongDetailsWindow : Window
     {

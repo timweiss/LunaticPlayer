@@ -31,7 +31,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/lp-copy-92.png"/>
+                            <ImageBrush ImageSource="/Resources/lp-copy-92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
@@ -41,7 +41,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/lp-code-92.png"/>
+                            <ImageBrush ImageSource="/Resources/lp-code-92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
@@ -51,7 +51,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/lp-search-92.png"/>
+                            <ImageBrush ImageSource="/Resources/lp-search-92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
@@ -61,7 +61,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/lp-search-92.png"/>
+                            <ImageBrush ImageSource="/Resources/lp-search-92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>

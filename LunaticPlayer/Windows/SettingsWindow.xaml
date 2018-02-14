@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
+        xmlns:windows="clr-namespace:LunaticPlayer.Windows"
         mc:Ignorable="d"
-        Title="Settings" Height="384" Width="582.875" d:DataContext="{local:SettingsViewModel}">
+        Title="Settings" Height="384" Width="582.875" d:DataContext="{SettingsViewModel}">
     <Grid Background="Black">
         <DockPanel Background="{DynamicResource GR-Gradient-Fade}">
             <Border Name="AppInfo" Padding="10,0,10,10" Width="200">
@@ -23,7 +24,7 @@
                 </Border.Triggers>
                 <StackPanel>
                     <Border Padding="15">
-                        <Image RenderOptions.BitmapScalingMode="Fant" Source="Resources/logo-new-05x.png">
+                        <Image RenderOptions.BitmapScalingMode="Fant" Source="/Resources/logo-new-05x.png">
                             <Image.Effect>
                                 <DropShadowEffect x:Name="LogoDropShadow" Direction="-90" BlurRadius="20" Opacity="0.2" ShadowDepth="10"/>
                             </Image.Effect>

@@ -43,7 +43,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/help_black_92.png"/>
+                            <ImageBrush ImageSource="/Resources/help_black_92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>

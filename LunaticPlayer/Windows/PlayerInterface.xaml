@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LunaticPlayer"
         xmlns:controls="clr-namespace:LunaticPlayer.Controls"
+        xmlns:windows="clr-namespace:LunaticPlayer.Windows"
         mc:Ignorable="d"
         Title="Lunatic Player" Height="245" Width="375" Closed="Window_Closed" Loaded="Window_Loaded" UseLayoutRounding="True">
 
@@ -152,7 +153,7 @@
                             </Border.Effect>
                             <Button RenderOptions.BitmapScalingMode="Fant" Name="PlayButton" Click="Button_Click" Style="{StaticResource BorderlessImageButton}" Background="#FF3B1F70">
                                 <Button.OpacityMask>
-                                    <ImageBrush ImageSource="Resources/lp-play-92.png"/>
+                                    <ImageBrush ImageSource="/Resources/lp-play-92.png"/>
                                 </Button.OpacityMask>
                             </Button>
                         </Border>
@@ -182,7 +183,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/lp-vol-92.png"/>
+                            <ImageBrush ImageSource="/Resources/lp-vol-92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
@@ -193,7 +194,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/voloff_92.png"/>
+                            <ImageBrush ImageSource="/Resources/voloff_92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
@@ -203,7 +204,7 @@
                             <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                         </Button.Effect>
                         <Button.OpacityMask>
-                            <ImageBrush ImageSource="Resources/lp-list-92.png"/>
+                            <ImageBrush ImageSource="/Resources/lp-list-92.png"/>
                         </Button.OpacityMask>
                     </Button>
                 </Border>
@@ -215,7 +216,7 @@
                         <DropShadowEffect Direction="-90" Opacity="0.4" BlurRadius="20"/>
                     </Button.Effect>
                     <Button.OpacityMask>
-                        <ImageBrush ImageSource="Resources/lp-settings-92.png"/>
+                        <ImageBrush ImageSource="/Resources/lp-settings-92.png"/>
                     </Button.OpacityMask>
                 </Button>
             </Border>
@@ -225,8 +226,8 @@
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo>
             <TaskbarItemInfo.ThumbButtonInfos>
-                <ThumbButtonInfo x:Name="TBMuteButton"  ImageSource="Resources/mute_mat.ico" Description="Mute" Click="TBMuteButton_Click" />
-                <ThumbButtonInfo x:Name="TBPlayButton"  ImageSource="Resources/play_mat.ico" Description="Play / Pause" Click="ThumbButtonInfo_Click" />
+                <ThumbButtonInfo x:Name="TBMuteButton"  ImageSource="/Resources/mute_mat.ico" Description="Mute" Click="TBMuteButton_Click" />
+                <ThumbButtonInfo x:Name="TBPlayButton"  ImageSource="/Resources/play_mat.ico" Description="Play / Pause" Click="ThumbButtonInfo_Click" />
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
     </Window.TaskbarItemInfo>

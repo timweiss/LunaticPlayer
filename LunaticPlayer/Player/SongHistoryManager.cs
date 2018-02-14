@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace LunaticPlayer.Player
 {
+    /// <summary>
+    /// Manages and initializes the song history.
+    /// </summary>
     public class SongHistoryManager
     {
         public List<Song> SongHistory { get; private set; }

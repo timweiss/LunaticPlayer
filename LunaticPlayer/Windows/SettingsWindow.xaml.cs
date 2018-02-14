@@ -1,23 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Player;
 using LunaticPlayer.Windows;
@@ -60,7 +49,7 @@ namespace LunaticPlayer
     }
 
     /// <summary>
-    /// Interaktionslogik für SettingsWindow.xaml
+    /// Settings window where users are able to clear the song history or cover image folder.
     /// </summary>
     public partial class SettingsWindow : Window
     {
@@ -86,9 +75,6 @@ namespace LunaticPlayer
 
         private void Window_Loaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            //Storyboard sb = this.FindResource("FadeAppInfo") as Storyboard;
-            //Storyboard.SetTarget(sb, this.AppInfo);
-            //sb.Begin();
             ReloadData();
         }
 
