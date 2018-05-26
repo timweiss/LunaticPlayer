@@ -4,6 +4,7 @@
 	<br>
 </div>
 <h1 align="center">Lunatic Player</h1>
+
 Lunatic Player is a small WPF player for [Gensokyo Radio](https://gensokyoradio.net/). Feel free to leave feedback!
 
 ## Download
