@@ -40,8 +40,8 @@ namespace LunaticPlayer
 
         private MediaKeyHook _mediaKeyHook;
 
-		// discord RPC client
-		private DiscordRpcClient _discordRpcClient;
+        // discord RPC client
+        private DiscordRpcClient _discordRpcClient;
 
         public MainWindow()
         {
@@ -64,7 +64,7 @@ namespace LunaticPlayer
                     .ConvertFromString("pack://application:,,,/LunaticPlayer;component/Resources/gr-album-fallback.png")
                 as ImageSource;
 
-			InitializeDiscord();
+            InitializeDiscord();
         }
 
         /// <summary>
@@ -100,13 +100,13 @@ namespace LunaticPlayer
                 {
                     animationRun = false;
                     RunFadeInAnimation();
-					UpdateDiscordPresence();
+                    UpdateDiscordPresence();
                 }
                 else if (previousSong.ApiSongId != _currentSong.ApiSongId) // prevents continuous fade in of same song
                 {
                     animationRun = false;
                     RunFadeInAnimation();
-					UpdateDiscordPresence();
+                    UpdateDiscordPresence();
                 }
             }
 
@@ -294,10 +294,10 @@ namespace LunaticPlayer
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
-			Client.Configuration.GetInstance().Save();
+            Client.Configuration.GetInstance().Save();
             _radioPlayer.Stop();
             Application.Current.Shutdown();
-			DestroyDiscord();
+            DestroyDiscord();
         }
 
         private PopupBanner _messageBanner;
@@ -389,43 +389,43 @@ namespace LunaticPlayer
         private void OnVolumeChange()
         {
             _radioPlayer.SetVolume(volumeBar.Data.Volume);
-			Client.Configuration.GetInstance().Data.Volume = Math.Round(volumeBar.Data.Volume, 2);
+            Client.Configuration.GetInstance().Data.Volume = Math.Round(volumeBar.Data.Volume, 2);
         }
 
-		/// <summary>
-		/// Initializes the Discord RPC API
-		/// </summary>
-		private void InitializeDiscord()
-		{
-			string clientID = "535310204859056139";
-			_discordRpcClient = new DiscordRpcClient(clientID);
-			_discordRpcClient.Initialize();
-		}
+        /// <summary>
+        /// Initializes the Discord RPC API
+        /// </summary>
+        private void InitializeDiscord()
+        {
+            string clientID = "535310204859056139";
+            _discordRpcClient = new DiscordRpcClient(clientID);
+            _discordRpcClient.Initialize();
+        }
 
-		/// <summary>
-		/// Updates discord presence based on the currently playing song
-		/// </summary>
-		private void UpdateDiscordPresence()
-		{
-			_discordRpcClient.SetPresence(new RichPresence()
-			{
-				Details = "Listening to: " + _currentSong.Title,
-				State = "By: " + _currentSong.ArtistName,
-				Timestamps = Timestamps.FromTimeSpan(_currentSong.Duration - _currentSong.PlayedDuration),
-				Assets = new Assets()
-				{
-					LargeImageKey = "large_logo"
-				}
-			});
-		}
+        /// <summary>
+        /// Updates discord presence based on the currently playing song
+        /// </summary>
+        private void UpdateDiscordPresence()
+        {
+            _discordRpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Listening to: " + _currentSong.Title,
+                State = "By: " + _currentSong.ArtistName,
+                Timestamps = Timestamps.FromTimeSpan(_currentSong.Duration - _currentSong.PlayedDuration),
+                Assets = new Assets()
+                {
+                    LargeImageKey = "large_logo"
+                }
+            });
+        }
 
-		/// <summary>
-		/// Deinitialize the discord RPC API to save resources
-		/// </summary>
-		private void DestroyDiscord()
-		{
-			_discordRpcClient.Dispose();
-		}
+        /// <summary>
+        /// Deinitialize the discord RPC API to save resources
+        /// </summary>
+        private void DestroyDiscord()
+        {
+            _discordRpcClient.Dispose();
+        }
 
         public bool IsPlaying => _isPlaying;
     }
