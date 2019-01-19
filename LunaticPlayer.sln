@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaticPlayer", "LunaticPlayer\LunaticPlayer.csproj", "{54C1D563-C319-478E-805B-DA04CB7D90A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaticPlayer.GRadioAPI", "LunaticPlayer.GRadioAPI\LunaticPlayer.GRadioAPI.csproj", "{432B7143-97FC-4E49-9D42-4E8C4D3085BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaticPlayer.Database", "LunaticPlayer.Database\LunaticPlayer.Database.csproj", "{7E1C563E-7DCF-4420-80EE-6ED3AFC85577}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CAC0043B-9A16-4120-8C1D-A76A9E096AAF}"
+	ProjectSection(SolutionItems) = preProject
+		DiscordRPC\DiscordRPC.dll = DiscordRPC\DiscordRPC.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,6 +12,7 @@ using LunaticPlayer.Classes;
 using LunaticPlayer.Client;
 using LunaticPlayer.Controls;
 using LunaticPlayer.GRadioAPI.Clients;
+using DiscordRPC;
 
 namespace LunaticPlayer
 {
@@ -39,6 +40,9 @@ namespace LunaticPlayer
 
         private MediaKeyHook _mediaKeyHook;
 
+        // discord RPC client
+        private DiscordRpcClient _discordRpcClient;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -51,7 +55,7 @@ namespace LunaticPlayer
             _interfaceTimer.Interval = 1000;
             _interfaceTimer.Elapsed += ReloadInterface;
 
-            _radioPlayer.SetVolume(Configuration.GetInstance().Data.Volume);
+            _radioPlayer.SetVolume(Client.Configuration.GetInstance().Data.Volume);
 
             LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
@@ -59,6 +63,8 @@ namespace LunaticPlayer
             _fallbackAlbumIcon = new ImageSourceConverter()
                     .ConvertFromString("pack://application:,,,/LunaticPlayer;component/Resources/gr-album-fallback.png")
                 as ImageSource;
+
+            InitializeDiscord();
         }
 
         /// <summary>
@@ -94,11 +100,13 @@ namespace LunaticPlayer
                 {
                     animationRun = false;
                     RunFadeInAnimation();
+                    UpdateDiscordPresence();
                 }
                 else if (previousSong.ApiSongId != _currentSong.ApiSongId) // prevents continuous fade in of same song
                 {
                     animationRun = false;
                     RunFadeInAnimation();
+                    UpdateDiscordPresence();
                 }
             }
 
@@ -145,7 +153,7 @@ namespace LunaticPlayer
             else
             {
                 _radioPlayer.PlayFromUrl(ApiClient.StreamUrl);
-                _radioPlayer.SetVolume(Configuration.GetInstance().Data.Volume);
+                _radioPlayer.SetVolume(Client.Configuration.GetInstance().Data.Volume);
                 _isPlaying = true;
                 TBPlayButton.Description = "Stop";
 
@@ -165,7 +173,7 @@ namespace LunaticPlayer
         /// </summary>
         private void MuteRadioStream()
         {
-            _radioPlayer.ToggleMute(Configuration.GetInstance().Data.Volume);
+            _radioPlayer.ToggleMute(Client.Configuration.GetInstance().Data.Volume);
 
             if (_radioPlayer.Muted)
             {
@@ -251,7 +259,7 @@ namespace LunaticPlayer
         {
             if (volumeBar == null)
             {
-                var vol = Configuration.GetInstance().Data.Volume;
+                var vol = Client.Configuration.GetInstance().Data.Volume;
                 volumeBar = new VolumeBar(new VolumeBarData() { Volume = vol });
                 volumeBar.Height = 21;
                 volumeBar.Width = 100;
@@ -286,9 +294,10 @@ namespace LunaticPlayer
         /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
-            Configuration.GetInstance().Save();
+            Client.Configuration.GetInstance().Save();
             _radioPlayer.Stop();
             Application.Current.Shutdown();
+            DestroyDiscord();
         }
 
         private PopupBanner _messageBanner;
@@ -380,7 +389,42 @@ namespace LunaticPlayer
         private void OnVolumeChange()
         {
             _radioPlayer.SetVolume(volumeBar.Data.Volume);
-            Configuration.GetInstance().Data.Volume = Math.Round(volumeBar.Data.Volume, 2);
+            Client.Configuration.GetInstance().Data.Volume = Math.Round(volumeBar.Data.Volume, 2);
+        }
+
+        /// <summary>
+        /// Initializes the Discord RPC API
+        /// </summary>
+        private void InitializeDiscord()
+        {
+            string clientID = "535310204859056139";
+            _discordRpcClient = new DiscordRpcClient(clientID);
+            _discordRpcClient.Initialize();
+        }
+
+        /// <summary>
+        /// Updates discord presence based on the currently playing song
+        /// </summary>
+        private void UpdateDiscordPresence()
+        {
+            _discordRpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Listening to: " + _currentSong.Title,
+                State = "By: " + _currentSong.ArtistName,
+                Timestamps = Timestamps.FromTimeSpan(_currentSong.Duration - _currentSong.PlayedDuration),
+                Assets = new Assets()
+                {
+                    LargeImageKey = "large_logo"
+                }
+            });
+        }
+
+        /// <summary>
+        /// Deinitialize the discord RPC API to save resources
+        /// </summary>
+        private void DestroyDiscord()
+        {
+            _discordRpcClient.Dispose();
         }
 
         public bool IsPlaying => _isPlaying;
