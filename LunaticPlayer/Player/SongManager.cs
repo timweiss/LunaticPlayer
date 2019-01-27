@@ -67,7 +67,20 @@ namespace LunaticPlayer.Player
                 {
                     using (var client = new WebClient())
                     {
-                        client.DownloadFile(GrImageHost + _currentSong.AlbumArtFilename, Path.Combine(ImageLocation,_currentSong.AlbumArtFilename));
+                        var imageUri = Path.Combine(ImageLocation, _currentSong.AlbumArtFilename);
+
+                        try
+                        {
+                            client.DownloadFile(GrImageHost + _currentSong.AlbumArtFilename, imageUri);
+                        }
+                        catch (Exception exception)
+                        {
+                            if (exception is WebException webException)
+                            {
+                                Console.WriteLine(webException.Status);
+                            }
+                            Console.WriteLine($"Could not download cover image:\n{imageUri}");
+                        }
                     }
                 }
 
